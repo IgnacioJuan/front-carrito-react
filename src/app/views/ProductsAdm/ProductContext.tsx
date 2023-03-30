@@ -6,7 +6,7 @@ interface IProductContext {
     products: IProduct[];
     editProduct: IProduct | null;
     createProduct: (product: IProduct) => void;
-    deleteProduct: (id: number) => void;
+    deleteProduct: (product: IProduct) => void;
     findProduct: (id: number) => void;
     updateProduct: (product: IProduct) => void;
     setEditProduct: React.Dispatch<React.SetStateAction<IProduct | null>>;
@@ -15,7 +15,7 @@ export const ProductContext = createContext<IProductContext>({
     products: [],
     editProduct: null,
     createProduct: (product: IProduct) => {},
-    deleteProduct: (id: number) => {},
+    deleteProduct: (product: IProduct) => {},
     findProduct: (id: number) => {},
     updateProduct: (product: IProduct) => {},
     setEditProduct: () => {},
@@ -52,7 +52,7 @@ const ProductContextProvider = (props:any) => {
     }
     const updateProduct=(product:any)=>{
         productService.update(product).then((data)=>setProducts(
-            products.map(e=>(e.id_producto===product.id_product?data:e))
+            products.map(e=>(e.id_producto===product.id_producto?data:e))
         ));
 
         setEditProduct(null)

@@ -2,8 +2,6 @@ import React, { useContext, useState, useEffect, useRef } from "react";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import { CategoryContext } from "./CategoryContext";
-import { Divider } from "primereact/divider";
-import { Toast } from 'primereact/toast';
 import { InputText } from "primereact/inputtext";
 
 import "../../styles/Category.css";
@@ -52,8 +50,8 @@ const CategorysForm = (props: any) => {
             createCategory(categoryData);
             toast.current.show({
                 severity: "success",
-                summary: "Exito",
-                detail: "Operacion Exitosa",
+                summary: "Succesful",
+                detail: "Succesful operation",
                 life: 3000,
             });
         } else {
@@ -71,8 +69,8 @@ const CategorysForm = (props: any) => {
             setConfirm(false);
             toast.current.show({
                 severity: "error",
-                summary: "Eliminado",
-                detail: "Datos eliminados",
+                summary: "Deleted",
+                detail: "Deleted data",
             });
         }
     };
@@ -138,13 +136,13 @@ const CategorysForm = (props: any) => {
 
                 <div>
                     <Button
-                        label="Aceptar"
+                        label="Accept"
                         icon="pi pi-check"
                         onClick={guardarCategory}
                         autoFocus
                     />
                     <Button
-                        label="Borrar"
+                        label="Delete"
                         icon="pi pi-times"
                         onClick={() => setConfirm(true)}
                         className="p-button-text"
@@ -154,14 +152,14 @@ const CategorysForm = (props: any) => {
 
             {/* Dialogo de eliminacion */}
             <Dialog
-                header="Desea eliminar este registro?"
+                header="Do you want to delete this record?"
                 visible={confirm}
                 style={{ width: "25vw" }}
                 onHide={() => setConfirm(false)}
             >
                 <div>
                     <Button
-                        label="Cancelar"
+                        label="Cancel"
                         icon="pi pi-times"
                         onClick={() => {
                             setIsVisible(false);
@@ -171,7 +169,7 @@ const CategorysForm = (props: any) => {
                         className="p-button-text"
                     />
                     <Button
-                        label="Confirmar"
+                        label="Confirm"
                         icon="pi pi-check"
                         onClick={_borrarCategory}
                         autoFocus

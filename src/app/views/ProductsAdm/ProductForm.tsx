@@ -16,7 +16,7 @@ import { CategoryService } from "../../services/CategoryServices";
 
 const ProductsForm = (props: any) => {
     //For the dialog state
-    const { isVisible, setIsVisible, seleccion, toast, idondonto } = props;
+    const { isVisible, setIsVisible, toast } = props;
     const [confirm, setConfirm] = useState(false);
     //Categorys variables
     const [selectedCategory, setSelectedCategory] = useState<ICategory | null>(
@@ -39,7 +39,6 @@ const ProductsForm = (props: any) => {
     const {
         createProduct,
         deleteProduct,
-        // findProduct,
         updateProduct,
         editProduct,
         setEditProduct,
@@ -57,30 +56,35 @@ const ProductsForm = (props: any) => {
     const guardarProduct = () => {
         console.log(productData);
         if (!editProduct) {
-            console.log("si");
             createProduct(productData);
             toast.current.show({
                 severity: "success",
-                summary: "Exito",
-                detail: "Operacion Exitosa",
+                summary: "Succesful",
+                detail: "Succesful operation",
                 life: 3000,
             });
         } else {
             updateProduct(productData);
+            toast.current.show({
+                severity: "success",
+                summary: "Succesful",
+                detail: "Succesful operation",
+                life: 3000,
+            });
         }
         setProductData(initialProductState);
         setIsVisible(false);
     };
     const _borrarProduct = () => {
         if (editProduct) {
-            deleteProduct(productData.id_producto || 0);
+            deleteProduct(productData);
             setProductData(initialProductState);
             setIsVisible(false);
             setConfirm(false);
             toast.current.show({
                 severity: "error",
-                summary: "Eliminado",
-                detail: "Datos eliminados",
+                summary: "Deleted",
+                detail: "Deleted data",
             });
         }
     };
@@ -95,7 +99,6 @@ const ProductsForm = (props: any) => {
         if (option) {
             return <div className="flex align-items-center">{option.label}</div>;
         }
-
         return <span>{props.placeholder}</span>;
     };
 
@@ -271,21 +274,15 @@ const ProductsForm = (props: any) => {
                     </div> */}
                 </div>
 
-
-
-
-
-
-
                 <div>
                     <Button
-                        label="Aceptar"
+                        label="Accept"
                         icon="pi pi-check"
                         onClick={guardarProduct}
                         autoFocus
                     />
                     <Button
-                        label="Borrar"
+                        label="Delete"
                         icon="pi pi-times"
                         onClick={() => setConfirm(true)}
                         className="p-button-text"
@@ -295,14 +292,14 @@ const ProductsForm = (props: any) => {
 
             {/* Dialogo de eliminacion */}
             <Dialog
-                header="Desea eliminar este registro?"
+                header="Do you want to delete this record?"
                 visible={confirm}
                 style={{ width: "25vw" }}
                 onHide={() => setConfirm(false)}
             >
                 <div>
                     <Button
-                        label="Cancelar"
+                        label="Cancel"
                         icon="pi pi-times"
                         onClick={() => {
                             setIsVisible(false);
@@ -312,7 +309,7 @@ const ProductsForm = (props: any) => {
                         className="p-button-text"
                     />
                     <Button
-                        label="Confirmar"
+                        label="Confirm"
                         icon="pi pi-check"
                         onClick={_borrarProduct}
                         autoFocus

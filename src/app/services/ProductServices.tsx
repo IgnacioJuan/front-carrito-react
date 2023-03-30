@@ -11,11 +11,11 @@ export class ProductService {
       return axios.post(this.baseUrl + "crear", product).then(res => res.data);
    }
    // /eliminar/{id}
-   delete(id:any) {
-      return axios.delete(this.baseUrl + "eliminar/" + id)
+   delete(product:any) {
+      return axios.put(this.baseUrl+"eliminar/"+product.id_producto,product).then(res=>res.data);
    }
    update(product:any){
-      return axios.put(this.baseUrl+"actualizar/"+product.id_product,product).then(res=>res.data);
+      return axios.put(this.baseUrl+"actualizar/"+product.id_producto,product).then(res=>res.data);
   }
 };
 

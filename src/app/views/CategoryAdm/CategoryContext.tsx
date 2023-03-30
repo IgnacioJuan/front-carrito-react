@@ -49,7 +49,6 @@ const CategoryContextProvider = (props:any) => {
 
     
     const findCategory = (id:number)=> {
-        // const category = categorys.find((p) => p.id_category === id);
         const category = categorys.find((p) => p.id_categoria === id);
         setEditCategory(category || null);
     }
