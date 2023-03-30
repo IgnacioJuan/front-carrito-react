@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
 
 import './App.css';
-import Footer from './app/common/Footer';
+import {Footer} from './app/common/Footer';
 import ProductContextProvider from './app/views/ProductsAdm/ProductContext';
 import { ProductList } from './app/views/ProductsAdm/ProductList';
 
