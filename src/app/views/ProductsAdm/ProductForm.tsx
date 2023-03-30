@@ -1,15 +1,24 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import { ProductContext } from "./ProductContext";
 import { Dropdown } from "primereact/dropdown";
-import { Avatar } from "primereact/avatar";
 import { Divider } from "primereact/divider";
+import { Toast } from 'primereact/toast';
+import { FileUpload } from 'primereact/fileupload';
+import { InputText } from "primereact/inputtext";
+import { InputNumber } from "primereact/inputnumber";
+
+import { classNames } from 'primereact/utils';
 
 import "../../styles/Product.css";
 import { useLocation } from "react-router-dom";
 const ProductsForm = (props: any) => {
 
+
+    const onUpload = () => {
+        toast.current.show({ severity: 'info', summary: 'Success', detail: 'File Uploaded' });
+    };
     const { isVisible, setIsVisible, seleccion, toast, idondonto } = props;
     const [confirm, setConfirm] = useState(false);
 
@@ -71,13 +80,54 @@ const ProductsForm = (props: any) => {
             });
         }
     };
+    //If the input in the form change 
+    const onInputChange = (data: any, field: any) => {
+        setProductData({ ...productData, [field]: data });
+
+        console.log(productData);
+    };
+    //For the dropdown
+    const [selectedCity, setSelectedCity] = useState(null);
+    const cities = [
+        { name: 'New York', code: 'NY' },
+        { name: 'Rome', code: 'RM' },
+        { name: 'London', code: 'LDN' },
+        { name: 'Istanbul', code: 'IST' },
+        { name: 'Paris', code: 'PRS' }
+    ];
+
+    //To convert the image
+//      const [selectedFiles, setSelectedFiles] = useState([]);
+
+//   const onUpload = (event) => {
+//     let files = event.files;
+//     let uploadedFiles = selectedFiles;
+
+//     for (let file of files) {
+//       let reader = new FileReader();
+//       reader.readAsDataURL(file);
+//       reader.onload = () => {
+//         uploadedFiles = [
+//           ...uploadedFiles,
+//           {
+//             name: file.name,
+//             type: file.type,
+//             size: file.size,
+//             data: reader.result,
+//           },
+//         ];
+//         setSelectedFiles(uploadedFiles);
+//       };
+//     }
+//   };
+
     return (
         <>
             {/* Dialogo para la creacion de una product*/}
             {/* <Button label="Show" icon="pi pi-external-link" onClick={() => setVisible(true)} /> */}
             <Dialog
                 className="DialogoCentrado"
-                header="AGREGAR PRODUCTO"
+                header="NEW PRODUCT"
                 modal={true}
                 visible={isVisible}
                 contentStyle={{ overflow: "visible" }}
@@ -85,7 +135,115 @@ const ProductsForm = (props: any) => {
                     setIsVisible(false);
                     setEditProduct(null);
                 }}
+
+                style={{ width: "800px" }}
             >
+
+                <div className="card flex flex-wrap gap-3">
+                    <div className="input-container">
+                        <div className="p-inputgroup">
+                            <span className="p-float-label card flex justify-content-center">
+                                <InputText
+                                    id="nombre"
+                                    name="nombre"
+                                    value={productData.nom_Producto}
+                                    onChange={(e) =>
+                                        onInputChange(e.target.value, "nom_Producto")
+                                    }
+                                />
+                                <label htmlFor="nombre">Name</label>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div className="input-container">
+                        <div className="p-inputgroup">
+                            <span className="p-float-label card flex justify-content-center">
+
+                                <InputNumber
+                                    id="stock"
+                                    name="stock"
+                                    value={productData.stock}
+                                    onChange={(e) =>
+                                        onInputChange(e.value, "stock")
+                                    }
+                                />
+                                <label htmlFor="stock">Stock</label>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div className="input-container">
+                        <div className="p-inputgroup">
+                            <span className="p-float-label card flex justify-content-center">
+
+                                <InputText
+                                    id="description"
+                                    name="description"
+                                    value={productData.descripcion}
+                                    onChange={(e) =>
+                                        onInputChange(e.target.value, "descripcion")
+                                    }
+                                />
+                                <label htmlFor="description">Description</label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="card flex flex-wrap justify-content-center gap-3">
+                    <div className="input-container2">
+                        <div className="p-inputgroup">
+                            <div className="card flex justify-content-center elementosDialog">
+                                <Dropdown value={selectedCity} onChange={(e) => setSelectedCity(e.value)} options={cities} optionLabel="name"
+                                    placeholder="Select a Category" className="w-full md:w-14rem" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="input-container2">
+                        <div className="p-inputgroup">
+                            <span className="p-float-label card flex justify-content-center">
+
+                                <InputNumber inputId="currency-us" value={productData.valor_unitario} onChange={(e) =>
+                                    onInputChange(e.value, "valor_unitario")
+                                } mode="currency" currency="USD" locale="en-US" />
+                                <label htmlFor="stock">Unit Value</label>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+                <div className="card flex flex-wrap justify-content-center gap-3">
+                    <div className="input-container3">
+                        <div className="p-inputgroup">
+                            <div className="card flex justify-content-center elementosDialog">
+                                <FileUpload
+                                    name="demo[]"
+                                    url={"/api/upload"}
+                                    accept="image/*"
+                                    maxFileSize={1000000}
+                                    emptyTemplate={<p className="m-0">Drag and drop files to here to upload.</p>}
+                                    onUpload={onUpload}
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* <div className="input-container3">
+                        {selectedFiles.map((file) => (
+                            <div key={file.name}>
+                                <img src={file.data} alt={file.name} />
+                                <p>{file.name}</p>
+                            </div>
+                        ))}
+                    </div> */}
+                </div>
+
+
+
+
+
 
 
                 <div>

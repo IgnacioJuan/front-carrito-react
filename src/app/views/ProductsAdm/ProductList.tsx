@@ -34,23 +34,32 @@ export const ProductList = () => {
     setSeleccion(e.target.id.slice(0, -1));
     setIsVisible(true);
   };
+
+  const header = (
+    <div className="flex flex-wrap align-items-center justify-content-between " >
+      <span className="text-xl text-900 font-bold">PRODUCTS LIST</span>
+      <Divider />
+      <div
+        id="busqueda"
+        className=""
+        style={{ alignItems: "center", paddingLeft:"75px" , paddingRight:"75px" }}
+      >
+      </div>
+    </div>
+  );
   //HTML
   return (
     <>
       <div >
-      <Button onClick={newProduct}>Añadir Producto</Button>
+        
+      <Button onClick={newProduct}>New Product</Button>
         <Toast ref={toast} />
         {/* Card de el product y la tabla de products */}
         <div className="linea">
           <Card className="table">
-            <Divider align="left">
-              <div className="inline-flex align-items-center">
-                <b>Lista de productos</b>
-                
-              </div>
-            </Divider>
             {/* Tabla de products */}
             <DataTable
+             header={header}
               value={products}
               responsiveLayout="scroll"
               style={{ textAlign: "center" }}
@@ -60,16 +69,17 @@ export const ProductList = () => {
               rows={5}
               rowsPerPageOptions={[5, 10, 25, 50]}
             >
-              <Column field="id_producto" header="id_producto"></Column>
+              <Column field="id_producto" header="ID"></Column>
+              <Column field="nom_Producto" header="NAME"></Column>
+              <Column field="stock" header="STOCK"></Column>
+              <Column field="descripcion" header="DESCRIPTION"></Column>
+              <Column field="valor_unitario" header="UNIT VALUE"></Column>
+              <Column field="foto" header="IMAGE"></Column>
+              <Column field="categoria" header="CATEGORY"></Column>
               
             </DataTable>
-
             <br />
             <Divider />
-            {/* Boton para Confirmar los cambios */}
-            <div style={{ paddingLeft: "40%", marginLeft:"50px"}}>
-              <Button label="GUARDAR" style={{backgroundColor:"#22C55E",borderColor:"#22C55E"}} icon="pi pi-check" autoFocus onClick={redireccion}/>
-            </div>
           </Card>
         </div>
       </div>
