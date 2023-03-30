@@ -8,7 +8,7 @@ import {
 
 import { AuthRouter } from '../views/auth/Authrouter';
 
-import Home from '../views/Home';
+import Home from '../views/dashboard/home/Home';
 import { PrivateRouter } from './PrivateRouter';
 import { AuthContext } from '../views/store/context/AuthContext';
 import { DashboardRouter } from '../views/dashboard/DashboardRouter';

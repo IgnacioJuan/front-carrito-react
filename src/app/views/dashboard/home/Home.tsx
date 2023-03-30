@@ -5,9 +5,8 @@ const Home = () => {
   //24-02-23
   return (
     <div>
-      <html>
-        <Footer></Footer>
-      </html>
+      <h1>a</h1>
+      <Footer></Footer>
     </div>
   );
 };

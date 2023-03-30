@@ -1,19 +1,30 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 
 import './App.css';
 import Footer from './app/common/Footer';
 import ProductContextProvider from './app/views/ProductsAdm/ProductContext';
 import { ProductList } from './app/views/ProductsAdm/ProductList';
 
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter, BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import CategoryContextProvider from './app/views/CategoryAdm/CategoryContext';
+import { CategoryList } from './app/views/CategoryAdm/CategoryList';
+import Home from './app/views/dashboard/home/Home';
+import { NotFound } from './app/views/NotFound';
+
 
 function App() {
+
   return (
     <>
-      <h1>Hola Mundo</h1>
-<Router>
-      <ProductContextProvider><ProductList></ProductList></ProductContextProvider>
-      </Router>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/home" element={<Home />} />
+          <Route path="/category" element={<CategoryContextProvider><CategoryList></CategoryList></CategoryContextProvider>} />
+          <Route path="/product" element={<ProductContextProvider><ProductList/></ProductContextProvider>} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+      <Footer />
     </>
   );
 }
