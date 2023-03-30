@@ -31,15 +31,12 @@ const CategorysForm = (props: any) => {
     } = useContext(CategoryContext);
 
     useEffect(() => {
-        console.log("edit")
         if (editCategory)
             setCategoryData({
                 id_categoria: editCategory.id_categoria,
                 nombre_categoria: editCategory.nombre_categoria,
                 descripcion_categoria: editCategory.descripcion_categoria,
             });
-        console.log(categoryData)
-        console.log(editCategory)
     }, [editCategory]);
 
     useEffect(() => {
@@ -89,8 +86,6 @@ const CategorysForm = (props: any) => {
 
     return (
         <>
-            {/* Dialogo para la creacion de una category*/}
-            {/* <Button label="Show" icon="pi pi-external-link" onClick={() => setVisible(true)} /> */}
             <Dialog
                 className="DialogoCentrado"
                 header="NEW PRODUCT"

@@ -8,20 +8,23 @@ import { Toast } from 'primereact/toast';
 import { FileUpload } from 'primereact/fileupload';
 import { InputText } from "primereact/inputtext";
 import { InputNumber } from "primereact/inputnumber";
-
-import { classNames } from 'primereact/utils';
-
 import "../../styles/Product.css";
 import { useLocation } from "react-router-dom";
+import { IProduct } from "../../interfaces/IProduct";
+import { ICategory } from "../../interfaces/ICategory";
+import { CategoryService } from "../../services/CategoryServices";
+
 const ProductsForm = (props: any) => {
-
-
-    const onUpload = () => {
-        toast.current.show({ severity: 'info', summary: 'Success', detail: 'File Uploaded' });
-    };
+    //For the dialog state
     const { isVisible, setIsVisible, seleccion, toast, idondonto } = props;
     const [confirm, setConfirm] = useState(false);
-
+    //Categorys variables
+    const [selectedCategory, setSelectedCategory] = useState<ICategory | null>(
+        null
+    );
+    const [categorys, setCategorys] = useState<ICategory[]>([]);
+    const categoryService = new CategoryService();
+    //For the products 
     const initialProductState = {
         id_producto: 0,
         nom_Producto: "",
@@ -32,8 +35,7 @@ const ProductsForm = (props: any) => {
         enabled: false,
         categoria: {},
     };
-    const [productData, setProductData] = useState(initialProductState);
-
+    const [productData, setProductData] = useState<IProduct>(initialProductState);
     const {
         createProduct,
         deleteProduct,
@@ -42,13 +44,15 @@ const ProductsForm = (props: any) => {
         editProduct,
         setEditProduct,
     } = useContext(ProductContext);
-
+    useEffect(() => {
+        if (editProduct)
+            setProductData(editProduct);
+    }, [editProduct]);
     useEffect(() => {
         setProductData({
             ...productData
-            // ["id_odontograma"]: Varible_Del_Odontograma enviada,
         });
-    }, [seleccion, isVisible]);
+    }, []);
 
     const guardarProduct = () => {
         console.log(productData);
@@ -69,7 +73,7 @@ const ProductsForm = (props: any) => {
     };
     const _borrarProduct = () => {
         if (editProduct) {
-            deleteProduct(productData.id_producto);
+            deleteProduct(productData.id_producto || 0);
             setProductData(initialProductState);
             setIsVisible(false);
             setConfirm(false);
@@ -87,39 +91,52 @@ const ProductsForm = (props: any) => {
         console.log(productData);
     };
     //For the dropdown
-    const [selectedCity, setSelectedCity] = useState(null);
-    const cities = [
-        { name: 'New York', code: 'NY' },
-        { name: 'Rome', code: 'RM' },
-        { name: 'London', code: 'LDN' },
-        { name: 'Istanbul', code: 'IST' },
-        { name: 'Paris', code: 'PRS' }
-    ];
+    const selectedPacientTemplate = (option: any, props: any) => {
+        if (option) {
+            return <div className="flex align-items-center">{option.label}</div>;
+        }
 
-    //To convert the image
-//      const [selectedFiles, setSelectedFiles] = useState([]);
+        return <span>{props.placeholder}</span>;
+    };
 
-//   const onUpload = (event) => {
-//     let files = event.files;
-//     let uploadedFiles = selectedFiles;
+    const categoryOptionTemplate = (option: any) => {
+        return <>{option.label}</>;
+    };
+    function onCategoryChange(categoria: any) {
+        setSelectedCategory(categoria);
+    }
+    useEffect(() => {
+        categoryService.getAll().then(data => {
+            setCategorys(data)
+        })
+    }, []);
+    //To convert the image+
+    const onUpload = () => {
+        toast.current.show({ severity: 'info', summary: 'Success', detail: 'File Uploaded' });
+    };
+    //      const [selectedFiles, setSelectedFiles] = useState([]);
 
-//     for (let file of files) {
-//       let reader = new FileReader();
-//       reader.readAsDataURL(file);
-//       reader.onload = () => {
-//         uploadedFiles = [
-//           ...uploadedFiles,
-//           {
-//             name: file.name,
-//             type: file.type,
-//             size: file.size,
-//             data: reader.result,
-//           },
-//         ];
-//         setSelectedFiles(uploadedFiles);
-//       };
-//     }
-//   };
+    //   const onUpload = (event) => {
+    //     let files = event.files;
+    //     let uploadedFiles = selectedFiles;
+
+    //     for (let file of files) {
+    //       let reader = new FileReader();
+    //       reader.readAsDataURL(file);
+    //       reader.onload = () => {
+    //         uploadedFiles = [
+    //           ...uploadedFiles,
+    //           {
+    //             name: file.name,
+    //             type: file.type,
+    //             size: file.size,
+    //             data: reader.result,
+    //           },
+    //         ];
+    //         setSelectedFiles(uploadedFiles);
+    //       };
+    //     }
+    //   };
 
     return (
         <>
@@ -144,8 +161,8 @@ const ProductsForm = (props: any) => {
                         <div className="p-inputgroup">
                             <span className="p-float-label card flex justify-content-center">
                                 <InputText
-                                    id="nombre"
-                                    name="nombre"
+                                    id="name"
+                                    name="name"
                                     value={productData.nom_Producto}
                                     onChange={(e) =>
                                         onInputChange(e.target.value, "nom_Producto")
@@ -195,8 +212,22 @@ const ProductsForm = (props: any) => {
                     <div className="input-container2">
                         <div className="p-inputgroup">
                             <div className="card flex justify-content-center elementosDialog">
-                                <Dropdown value={selectedCity} onChange={(e) => setSelectedCity(e.value)} options={cities} optionLabel="name"
-                                    placeholder="Select a Category" className="w-full md:w-14rem" />
+                                <Dropdown
+                                    filter
+                                    valueTemplate={selectedPacientTemplate}
+                                    itemTemplate={categoryOptionTemplate}
+                                    value={selectedCategory}
+                                    onChange={(e) => {
+                                        onCategoryChange(e.value);
+                                        onInputChange(e.target.value, "categoria");
+                                    }}
+                                    options={categorys.map((item) => ({
+                                        id: item.id_categoria,
+                                        label: `${item.nombre_categoria}`,
+                                    }))}
+                                    optionLabel="label"
+                                    placeholder="Select a category"
+                                />
                             </div>
                         </div>
                     </div>
