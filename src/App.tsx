@@ -2,6 +2,8 @@ import React, { useReducer } from 'react';
 
 import './App.css';
 import {Footer} from './app/common/Footer';
+import Header from './app/common/Header';
+
 import ProductContextProvider from './app/views/ProductsAdm/ProductContext';
 import { ProductList } from './app/views/ProductsAdm/ProductList';
 
@@ -16,6 +18,7 @@ function App() {
 
   return (
     <>
+      <Header></Header>
       <BrowserRouter>
         <Routes>
           <Route path="/home" element={<Home />} />
@@ -24,7 +27,9 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
-      <Footer />
+      <div className="footer-container">
+        <Footer />
+      </div>
     </>
   );
 }

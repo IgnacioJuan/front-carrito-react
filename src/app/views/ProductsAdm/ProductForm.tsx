@@ -114,32 +114,39 @@ const ProductsForm = (props: any) => {
         })
     }, []);
     //To convert the image+
-    const onUpload = () => {
-        toast.current.show({ severity: 'info', summary: 'Success', detail: 'File Uploaded' });
-    };
-    //      const [selectedFiles, setSelectedFiles] = useState([]);
 
-    //   const onUpload = (event) => {
-    //     let files = event.files;
-    //     let uploadedFiles = selectedFiles;
+    const [selectedFile, setSelectedFile] = useState<string | null>(null);
+    const fileUploadRef = useRef<any>(null);
 
-    //     for (let file of files) {
-    //       let reader = new FileReader();
-    //       reader.readAsDataURL(file);
-    //       reader.onload = () => {
-    //         uploadedFiles = [
-    //           ...uploadedFiles,
-    //           {
-    //             name: file.name,
-    //             type: file.type,
-    //             size: file.size,
-    //             data: reader.result,
-    //           },
-    //         ];
-    //         setSelectedFiles(uploadedFiles);
-    //       };
-    //     }
-    //   };
+    function onFileSelect(event: any) {
+        const file = event.files[0];
+        const reader = new FileReader();
+        reader.onload = function (e: any) {
+            setSelectedFile(e.target.result);
+            const buffer = e.target.result;
+            const byteArray = new Uint8Array(buffer);
+            const base64String = bytesToBase64(byteArray);
+            console.log(base64String);
+            onInputChange(base64String, "foto");
+        };
+        reader.readAsArrayBuffer(file);
+
+    }
+    function bytesToBase64(bytes: Uint8Array): string {
+        let binary = '';
+        const length = bytes.byteLength;
+        for (let i = 0; i < length; i++) {
+            binary += String.fromCharCode(bytes[i]);
+        }
+        return btoa(binary);
+    }
+    function onClear() {
+        setSelectedFile(null);
+        if (fileUploadRef.current) {
+            fileUploadRef.current.clear();
+        }
+    }
+
 
     return (
         <>
@@ -154,9 +161,10 @@ const ProductsForm = (props: any) => {
                 onHide={() => {
                     setIsVisible(false);
                     setEditProduct(null);
+                    setProductData(initialProductState)
                 }}
 
-                style={{ width: "800px" }}
+                style={{ width: "800px" }} breakpoints={{ '960px': '75vw', '641px': '100vw' }}
             >
 
                 <div className="card flex flex-wrap gap-3">
@@ -251,18 +259,30 @@ const ProductsForm = (props: any) => {
                 <div className="card flex flex-wrap justify-content-center gap-3">
                     <div className="input-container3">
                         <div className="p-inputgroup">
-                            <div className="card flex justify-content-center elementosDialog">
-                                <FileUpload
-                                    name="demo[]"
-                                    url={"/api/upload"}
-                                    accept="image/*"
-                                    maxFileSize={1000000}
-                                    emptyTemplate={<p className="m-0">Drag and drop files to here to upload.</p>}
-                                    onUpload={onUpload}
-                                />
+                            <div className="card justify-content-center elementosDialog">
+                                {/* {selectedFile ? (
+                                    <div className="elementoImg "
+                                    >
+                                        <img className="imagen" src={selectedFile} alt="Preview" />
+                                        <br />
+                                        <Button className="botonimagen" onClick={onClear}>Clear selection</Button>
+                                    </div>
+                                ) : ( */}
+                                    <FileUpload
+                                        className="BotonChose "
+                                        ref={fileUploadRef}
+                                        mode="basic"
+                                        accept="image/*"
+                                        maxFileSize={1000000}
+                                        previewWidth={130}
+                                        onSelect={onFileSelect}
+                                        chooseLabel="Select image"
+                                    />
+                                {/* )} */}
                             </div>
                         </div>
                     </div>
+
 
                     {/* <div className="input-container3">
                         {selectedFiles.map((file) => (
@@ -274,7 +294,7 @@ const ProductsForm = (props: any) => {
                     </div> */}
                 </div>
 
-                <div>
+                <div className="input-container2">
                     <Button
                         label="Accept"
                         icon="pi pi-check"
@@ -284,7 +304,7 @@ const ProductsForm = (props: any) => {
                     <Button
                         label="Delete"
                         icon="pi pi-times"
-                        onClick={() => setConfirm(true)}
+                        onClick={() => { if (editProduct) setConfirm(true) }}
                         className="p-button-text"
                     />
                 </div>
@@ -294,16 +314,14 @@ const ProductsForm = (props: any) => {
             <Dialog
                 header="Do you want to delete this record?"
                 visible={confirm}
-                style={{ width: "25vw" }}
+                style={{ width: "30vw" }}
                 onHide={() => setConfirm(false)}
             >
-                <div>
+                <div className="input-container2">
                     <Button
                         label="Cancel"
                         icon="pi pi-times"
                         onClick={() => {
-                            setIsVisible(false);
-                            setEditProduct(null);
                             setConfirm(false);
                         }}
                         className="p-button-text"

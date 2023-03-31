@@ -86,20 +86,21 @@ const CategorysForm = (props: any) => {
         <>
             <Dialog
                 className="DialogoCentrado"
-                header="NEW PRODUCT"
+                header={"NEW CATEGORY"}
                 modal={true}
                 visible={isVisible}
                 contentStyle={{ overflow: "visible" }}
                 onHide={() => {
                     setIsVisible(false);
                     setEditCategory(null);
+                    setCategoryData(initialCategoryState)
                 }}
 
                 style={{ width: "800px" }}
             >
 
                 <div className="card flex flex-wrap gap-2">
-                    <div className="input-container">
+                    <div className="input-container2">
                         <div className="p-inputgroup">
                             <span className="p-float-label card flex justify-content-center">
                                 <InputText
@@ -116,7 +117,7 @@ const CategorysForm = (props: any) => {
                     </div>
 
 
-                    <div className="input-container">
+                    <div className="input-container2">
                         <div className="p-inputgroup">
                             <span className="p-float-label card flex justify-content-center">
 
@@ -134,7 +135,7 @@ const CategorysForm = (props: any) => {
                     </div>
                 </div>
 
-                <div>
+                <div className="input-container2">
                     <Button
                         label="Accept"
                         icon="pi pi-check"
@@ -144,7 +145,8 @@ const CategorysForm = (props: any) => {
                     <Button
                         label="Delete"
                         icon="pi pi-times"
-                        onClick={() => setConfirm(true)}
+                        onClick={() => {if (editCategory) setConfirm(true)
+                        }}
                         className="p-button-text"
                     />
                 </div>
