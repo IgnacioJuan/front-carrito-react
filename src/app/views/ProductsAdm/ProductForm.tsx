@@ -31,7 +31,7 @@ const ProductsForm = (props: any) => {
         stock: 0,
         descripcion: "",
         valor_unitario: 0,
-        foto: 0,
+        foto: "",
         enabled: false,
         categoria: {},
     };
@@ -55,25 +55,33 @@ const ProductsForm = (props: any) => {
 
     const guardarProduct = () => {
         console.log(productData);
-        if (!editProduct) {
-            createProduct(productData);
-            toast.current.show({
-                severity: "success",
-                summary: "Succesful",
-                detail: "Succesful operation",
-                life: 3000,
-            });
+        if (validateInputs()) {
+            if (!editProduct) {
+                createProduct(productData);
+                toast.current.show({
+                    severity: "success",
+                    summary: "Succesful",
+                    detail: "Succesful operation",
+                    life: 3000,
+                });
+            } else {
+                updateProduct(productData);
+                toast.current.show({
+                    severity: "success",
+                    summary: "Succesful",
+                    detail: "Succesful operation",
+                    life: 3000,
+                });
+            }
+            setProductData(initialProductState);
+            setIsVisible(false);
         } else {
-            updateProduct(productData);
             toast.current.show({
-                severity: "success",
-                summary: "Succesful",
-                detail: "Succesful operation",
-                life: 3000,
+                severity: "error",
+                summary: "Form error",
+                detail: "Complete all fields",
             });
         }
-        setProductData(initialProductState);
-        setIsVisible(false);
     };
     const _borrarProduct = () => {
         if (editProduct) {
@@ -94,16 +102,30 @@ const ProductsForm = (props: any) => {
 
         console.log(productData);
     };
+    const [requiredFieldsEmpty, setRequiredFieldsEmpty] = useState(false);
+    const validateInputs = () => {
+        if (!productData.nom_Producto
+            || !productData.categoria
+            || !productData.descripcion
+            || !productData.foto
+            || !productData.stock
+            || !productData.valor_unitario) {
+            setRequiredFieldsEmpty(true);
+            return false;
+        }
+        return true;
+    }
+
     //For the dropdown
     const selectedPacientTemplate = (option: any, props: any) => {
         if (option) {
-            return <div className="flex align-items-center">{option.label}</div>;
+            return <div className="flex align-items-center">{option.nombre_categoria}</div>;
         }
         return <span>{props.placeholder}</span>;
     };
 
     const categoryOptionTemplate = (option: any) => {
-        return <>{option.label}</>;
+        return <>{option.nombre_categoria}</>;
     };
     function onCategoryChange(categoria: any) {
         setSelectedCategory(categoria);
@@ -122,24 +144,13 @@ const ProductsForm = (props: any) => {
         const file = event.files[0];
         const reader = new FileReader();
         reader.onload = function (e: any) {
-            setSelectedFile(e.target.result);
             const buffer = e.target.result;
             const byteArray = new Uint8Array(buffer);
-            const base64String = bytesToBase64(byteArray);
-            console.log(base64String);
-            onInputChange(base64String, "foto");
+            onInputChange(byteArray, "foto");
         };
         reader.readAsArrayBuffer(file);
+    }
 
-    }
-    function bytesToBase64(bytes: Uint8Array): string {
-        let binary = '';
-        const length = bytes.byteLength;
-        for (let i = 0; i < length; i++) {
-            binary += String.fromCharCode(bytes[i]);
-        }
-        return btoa(binary);
-    }
     function onClear() {
         setSelectedFile(null);
         if (fileUploadRef.current) {
@@ -227,16 +238,13 @@ const ProductsForm = (props: any) => {
                                     filter
                                     valueTemplate={selectedPacientTemplate}
                                     itemTemplate={categoryOptionTemplate}
-                                    value={selectedCategory}
+                                    value={productData.categoria}
                                     onChange={(e) => {
                                         onCategoryChange(e.value);
                                         onInputChange(e.target.value, "categoria");
                                     }}
-                                    options={categorys.map((item) => ({
-                                        id: item.id_categoria,
-                                        label: `${item.nombre_categoria}`,
-                                    }))}
-                                    optionLabel="label"
+                                    options={categorys}
+                                    optionLabel="nombre_categoria"
                                     placeholder="Select a category"
                                 />
                             </div>
@@ -263,35 +271,26 @@ const ProductsForm = (props: any) => {
                                 {/* {selectedFile ? (
                                     <div className="elementoImg "
                                     >
-                                        <img className="imagen" src={selectedFile} alt="Preview" />
+                                        <img className="imagen" src={productData.foto} alt="Preview" />
                                         <br />
                                         <Button className="botonimagen" onClick={onClear}>Clear selection</Button>
                                     </div>
                                 ) : ( */}
-                                    <FileUpload
-                                        className="BotonChose "
-                                        ref={fileUploadRef}
-                                        mode="basic"
-                                        accept="image/*"
-                                        maxFileSize={1000000}
-                                        previewWidth={130}
-                                        onSelect={onFileSelect}
-                                        chooseLabel="Select image"
-                                    />
+                                <FileUpload
+                                    className="BotonChose "
+                                    ref={fileUploadRef}
+                                    mode="basic"
+                                    accept="image/*"
+                                    maxFileSize={1000000}
+                                    previewWidth={130}
+                                    onSelect={onFileSelect}
+                                    chooseLabel="Select image"
+
+                                />
                                 {/* )} */}
                             </div>
                         </div>
                     </div>
-
-
-                    {/* <div className="input-container3">
-                        {selectedFiles.map((file) => (
-                            <div key={file.name}>
-                                <img src={file.data} alt={file.name} />
-                                <p>{file.name}</p>
-                            </div>
-                        ))}
-                    </div> */}
                 </div>
 
                 <div className="input-container2">

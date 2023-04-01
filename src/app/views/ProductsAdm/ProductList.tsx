@@ -41,9 +41,9 @@ export const ProductList = () => {
       <Divider />
       <div
         id="busqueda"
-        className=""
         style={{ alignItems: "center", paddingLeft:"75px" , paddingRight:"75px" }}
       >
+        <Button style={{margin: "0 auto", textAlign:"center"}} onClick={newProduct}>New Product</Button>
       </div>
     </div>
   );
@@ -52,7 +52,7 @@ export const ProductList = () => {
     <>
       <div >
         
-      <Button onClick={newProduct}>New Product</Button>
+      
         <Toast ref={toast} />
         {/* Card de el product y la tabla de products */}
         <div className="linea">
@@ -75,7 +75,7 @@ export const ProductList = () => {
               <Column field="descripcion" header="DESCRIPTION"></Column>
               <Column field="valor_unitario" header="UNIT VALUE"></Column>
               <Column field="foto" header="IMAGE"></Column>
-              <Column field="categoria" header="CATEGORY"></Column>
+              <Column field="categoria.id_categoria" header="CATEGORY"></Column>
               
             </DataTable>
             <br />

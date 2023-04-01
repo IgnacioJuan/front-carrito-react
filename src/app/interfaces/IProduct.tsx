@@ -4,7 +4,7 @@ export interface IProduct{
     stock: number;
     descripcion: string;
     valor_unitario: number;
-    foto:number;
+    foto:string;
     enabled:boolean;
     categoria:Object;
 

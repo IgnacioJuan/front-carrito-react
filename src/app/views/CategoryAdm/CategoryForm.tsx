@@ -10,6 +10,7 @@ const CategorysForm = (props: any) => {
 
     const { isVisible, setIsVisible, toast } = props;
     const [confirm, setConfirm] = useState(false);
+    const [requiredFieldsEmpty, setRequiredFieldsEmpty] = useState(false);
 
     const initialCategoryState = {
         id_categoria: 0,
@@ -45,20 +46,28 @@ const CategorysForm = (props: any) => {
 
     const guardarCategory = () => {
         console.log(categoryData);
-        if (!editCategory) {
-            console.log("si");
-            createCategory(categoryData);
+        if (validateInputs()) {
+            if (!editCategory) {
+                console.log("si");
+                createCategory(categoryData);
+                toast.current.show({
+                    severity: "success",
+                    summary: "Succesful",
+                    detail: "Succesful operation",
+                    life: 3000,
+                });
+            } else {
+                updateCategory(categoryData);
+            }
+            setCategoryData(initialCategoryState);
+            setIsVisible(false);
+        }else{
             toast.current.show({
-                severity: "success",
-                summary: "Succesful",
-                detail: "Succesful operation",
-                life: 3000,
+                severity: "error",
+                summary: "Form error",
+                detail: "Complete all fields",
             });
-        } else {
-            updateCategory(categoryData);
         }
-        setCategoryData(initialCategoryState);
-        setIsVisible(false);
     };
     const _borrarCategory = () => {
         if (editCategory) {
@@ -80,7 +89,14 @@ const CategorysForm = (props: any) => {
 
         console.log(categoryData);
     };
-
+    //Para validar campos vacios
+    const validateInputs = () => {
+        if (!categoryData.nombre_categoria || !categoryData.descripcion_categoria) {
+            setRequiredFieldsEmpty(true);
+            return false;
+        }
+        return true;
+    }
 
     return (
         <>
@@ -145,7 +161,8 @@ const CategorysForm = (props: any) => {
                     <Button
                         label="Delete"
                         icon="pi pi-times"
-                        onClick={() => {if (editCategory) setConfirm(true)
+                        onClick={() => {
+                            if (editCategory) setConfirm(true)
                         }}
                         className="p-button-text"
                     />
