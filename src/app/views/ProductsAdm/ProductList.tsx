@@ -8,7 +8,8 @@ import { Toast } from "primereact/toast";
 import { Divider } from "primereact/divider";
 import ProductsForm from "./ProductForm";
 import { ProductContext } from "./ProductContext";
-import { useNavigate  } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { IProduct } from "../../interfaces/IProduct";
 
 export const ProductList = () => {
 
@@ -17,7 +18,7 @@ export const ProductList = () => {
   const navigate = useNavigate();
   const [seleccion, setSeleccion] = useState();
 
-  const redireccion =()=>(
+  const redireccion = () => (
     navigate('/')
   )
 
@@ -25,12 +26,12 @@ export const ProductList = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [confirm, setConfirm] = useState(false);
   const toast = useRef(null);
-  
-  const saveProduct = (id:any) => { 
+
+  const saveProduct = (id: any) => {
     findProduct(id);
     setIsVisible(true);
   };
-  const newProduct = (e:any) => {
+  const newProduct = (e: any) => {
     setSeleccion(e.target.id.slice(0, -1));
     setIsVisible(true);
   };
@@ -41,30 +42,39 @@ export const ProductList = () => {
       <Divider />
       <div
         id="busqueda"
-        style={{ alignItems: "center", paddingLeft:"75px" , paddingRight:"75px" }}
+        style={{ alignItems: "center", paddingLeft: "75px", paddingRight: "75px" }}
       >
-        <Button style={{margin: "0 auto", textAlign:"center"}} onClick={newProduct}>New Product</Button>
+        <Button style={{ margin: "0 auto", textAlign: "center" }} onClick={newProduct}>New Product</Button>
       </div>
     </div>
   );
+
+
+  const base64ToImage = (base64String: string) => {
+    return `data:image/jpeg;base64,${base64String}`;
+  };
+
+  const imageBodyTemplate = (rowData: IProduct) => {
+    return <img src={base64ToImage(rowData.foto)} alt={rowData.nom_Producto} width="150" height="150" />;
+  };
   //HTML
   return (
     <>
       <div >
-        
-      
+
+
         <Toast ref={toast} />
         {/* Card de el product y la tabla de products */}
         <div className="linea">
           <Card className="table">
             {/* Tabla de products */}
             <DataTable
-             header={header}
+              header={header}
               value={products}
               responsiveLayout="scroll"
               style={{ textAlign: "center" }}
               selectionMode="single"
-              onSelectionChange={(e:any) => saveProduct(e.value.id_producto)}
+              onSelectionChange={(e: any) => saveProduct(e.value.id_producto)}
               paginator
               rows={5}
               rowsPerPageOptions={[5, 10, 25, 50]}
@@ -74,9 +84,9 @@ export const ProductList = () => {
               <Column field="stock" header="STOCK"></Column>
               <Column field="descripcion" header="DESCRIPTION"></Column>
               <Column field="valor_unitario" header="UNIT VALUE"></Column>
-              <Column field="foto" header="IMAGE"></Column>
+              <Column field="foto" header="IMAGE" body={imageBodyTemplate} />
               <Column field="categoria.id_categoria" header="CATEGORY"></Column>
-              
+
             </DataTable>
             <br />
             <Divider />

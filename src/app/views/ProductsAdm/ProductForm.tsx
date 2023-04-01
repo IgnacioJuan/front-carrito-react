@@ -46,6 +46,7 @@ const ProductsForm = (props: any) => {
     useEffect(() => {
         if (editProduct)
             setProductData(editProduct);
+            console.log(editProduct?.foto)
     }, [editProduct]);
     useEffect(() => {
         setProductData({
@@ -140,15 +141,39 @@ const ProductsForm = (props: any) => {
     const [selectedFile, setSelectedFile] = useState<string | null>(null);
     const fileUploadRef = useRef<any>(null);
 
+    // function onFileSelect(event: any) {
+    //     const file = event.files[0];
+    //     const reader = new FileReader();
+    //     reader.onload = function (e: any) {
+    //         const buffer = e.target.result;
+    //         const byteArray = new Uint8Array(buffer);
+    //         onInputChange(byteArray, "foto");
+    //     };
+    //     reader.readAsArrayBuffer(file);
+    // }
     function onFileSelect(event: any) {
         const file = event.files[0];
         const reader = new FileReader();
         reader.onload = function (e: any) {
+            setSelectedFile(e.target.result);
             const buffer = e.target.result;
             const byteArray = new Uint8Array(buffer);
-            onInputChange(byteArray, "foto");
+            const base64String = bytesToBase64(byteArray);
+            console.log(base64String);
+            onInputChange(base64String, "foto");
         };
         reader.readAsArrayBuffer(file);
+
+
+    }
+   
+    function bytesToBase64(bytes: Uint8Array): string {
+        let binary = '';
+        const length = bytes.byteLength;
+        for (let i = 0; i < length; i++) {
+            binary += String.fromCharCode(bytes[i]);
+        }
+        return btoa(binary);
     }
 
     function onClear() {
@@ -268,14 +293,14 @@ const ProductsForm = (props: any) => {
                     <div className="input-container3">
                         <div className="p-inputgroup">
                             <div className="card justify-content-center elementosDialog">
-                                {/* {selectedFile ? (
+                                {selectedFile&& productData.foto  ? (
                                     <div className="elementoImg "
                                     >
-                                        <img className="imagen" src={productData.foto} alt="Preview" />
+                                        <img className="imagen" src={`data:image/jpeg;base64,${productData.foto}`} alt="Preview" />
                                         <br />
                                         <Button className="botonimagen" onClick={onClear}>Clear selection</Button>
                                     </div>
-                                ) : ( */}
+                                ) : (
                                 <FileUpload
                                     className="BotonChose "
                                     ref={fileUploadRef}
@@ -287,7 +312,7 @@ const ProductsForm = (props: any) => {
                                     chooseLabel="Select image"
 
                                 />
-                                {/* )} */}
+                                )} 
                             </div>
                         </div>
                     </div>

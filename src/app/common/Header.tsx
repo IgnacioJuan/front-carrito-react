@@ -18,6 +18,10 @@ export default function TemplateDemo() {
                     label: 'Category',
                     icon: 'pi pi-fw pi-plus',
                     url: '/category'
+                },{
+                    label: 'Catalogo',
+                    icon: 'pi pi-fw pi-plus',
+                    url: '/catalogue'
                 },
                 {
                     label: 'Delete',

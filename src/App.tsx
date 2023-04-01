@@ -12,6 +12,7 @@ import CategoryContextProvider from './app/views/CategoryAdm/CategoryContext';
 import { CategoryList } from './app/views/CategoryAdm/CategoryList';
 import Home from './app/views/dashboard/home/Home';
 import { NotFound } from './app/views/NotFound';
+import Catalogue from './app/views/Catalogue/Catalogue';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/category" element={<CategoryContextProvider><CategoryList></CategoryList></CategoryContextProvider>} />
           <Route path="/product" element={<ProductContextProvider><ProductList/></ProductContextProvider>} />
+          <Route path="/catalogue" element={<Catalogue/>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
