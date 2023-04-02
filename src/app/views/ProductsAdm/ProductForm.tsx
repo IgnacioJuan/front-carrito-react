@@ -46,6 +46,7 @@ const ProductsForm = (props: any) => {
     useEffect(() => {
         if (editProduct)
             setProductData(editProduct);
+            setSelectedFile("si")
             console.log(editProduct?.foto)
     }, [editProduct]);
     useEffect(() => {
