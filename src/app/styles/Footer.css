@@ -1,31 +1,15 @@
-.footer-container {
-  background-color: #222;
-  color: #fff;
-  text-align: center;
-  padding: 1rem;
-  position: relative;
-  left: 0;
-  bottom: 0;
-  width: 100%;
+.footer .section-title{
+  margin-bottom: 0;
 }
-
-.social-icons-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 1rem;
+.footer.section-p{
+  padding: 4.5rem 0;
 }
-
-.social-icon {
-  width: 30px;
-  height: 30px;
+.footer-social-links{
+  margin-top: 2rem;
+}
+.footer-social-links li{
   margin: 0 1rem;
 }
-
-.text-container {
-  margin-bottom: 0.5rem;
-}
-
-.text {
-  font-size: 14px;
+.footer .reserved-text{
+  margin-top: 2rem;
 }

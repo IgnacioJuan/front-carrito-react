@@ -1,37 +1,47 @@
 import React from 'react';
 import "../styles/Footer.css";
+import { FaFacebookF, FaTwitter, FaInstagram, FaPinterest, FaBehance } from 'react-icons/fa';
 
 export const Footer = () => {
   
   
   return (
-    <footer className="footer-container">
-      <div className="social-icons-container">
-        <a href="https://github.com/">
-          <img
-            src="https://img.icons8.com/ios/50/000000/github--v1.png"
-            alt="Github"
-            className="social-icon"
-          />
-        </a>
-        <a href="https://www.linkedin.com/">
-          <img
-            src="https://img.icons8.com/ios/50/000000/linkedin.png"
-            alt="LinkedIn"
-            className="social-icon"
-          />
-        </a>
-        <a href="https://twitter.com/">
-          <img
-            src="https://img.icons8.com/ios/50/000000/twitter--v1.png"
-            alt="Twitter"
-            className="social-icon"
-          />
-        </a>
-      </div>
-      <div className="text-container">
-        <span className="text">&copy; 2023 Tu Empresa</span>
-      </div>
-    </footer>
+    <div className='footer bg-dark section-p' id = "footer">
+        <div className='container'>
+            <div className='section-title'>
+                <h3 className='text-brown'>Web <span className='text-white'>Shop</span></h3>
+            </div>
+            <div className='footer-content'>
+                <ul className='footer-social-links flex flex-c'>
+                    <li>
+                        <a href = "/" className='text-white'>
+                            <FaFacebookF />
+                        </a>
+                    </li>
+                    <li>
+                        <a href = "/" className='text-white'>
+                            <FaTwitter />
+                        </a>
+                    </li>
+                    <li>
+                        <a href = "/" className='text-white'>
+                            <FaInstagram />
+                        </a>
+                    </li>
+                    <li>
+                        <a href = "/" className='text-white'>
+                            <FaPinterest />
+                        </a>
+                    </li>
+                    <li>
+                        <a href = "/" className='text-white'>
+                            <FaBehance />
+                        </a>
+                    </li>
+                </ul>
+                <p className='text-center fs-14 text-white op-07 fw-3 ls-1 reserved-text'>All Rights Reserved &copy; 2022</p>
+            </div>
+        </div>
+    </div>
   );
 }
