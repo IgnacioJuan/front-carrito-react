@@ -33,7 +33,13 @@ const ProductsForm = (props: any) => {
         valor_unitario: 0,
         foto: "",
         enabled: false,
-        categoria: {},
+        categoria: {
+            id_categoria: 0,
+            nombre_categoria: "",
+            descripcion_categoria: "",
+            enabled: true,
+            producto: null,
+        },
     };
     const [productData, setProductData] = useState<IProduct>(initialProductState);
     const {
@@ -46,8 +52,8 @@ const ProductsForm = (props: any) => {
     useEffect(() => {
         if (editProduct)
             setProductData(editProduct);
-            setSelectedFile("si")
-            console.log(editProduct?.foto)
+        setSelectedFile("si")
+        console.log(editProduct?.foto)
     }, [editProduct]);
     useEffect(() => {
         setProductData({
@@ -167,7 +173,7 @@ const ProductsForm = (props: any) => {
 
 
     }
-   
+
     function bytesToBase64(bytes: Uint8Array): string {
         let binary = '';
         const length = bytes.byteLength;
@@ -294,7 +300,7 @@ const ProductsForm = (props: any) => {
                     <div className="input-container3">
                         <div className="p-inputgroup">
                             <div className="card justify-content-center elementosDialog">
-                                {selectedFile&& productData.foto  ? (
+                                {selectedFile && productData.foto ? (
                                     <div className="elementoImg "
                                     >
                                         <img className="imagen" src={`data:image/jpeg;base64,${productData.foto}`} alt="Preview" />
@@ -302,18 +308,18 @@ const ProductsForm = (props: any) => {
                                         <Button className="botonimagen" onClick={onClear}>Clear selection</Button>
                                     </div>
                                 ) : (
-                                <FileUpload
-                                    className="BotonChose "
-                                    ref={fileUploadRef}
-                                    mode="basic"
-                                    accept="image/*"
-                                    maxFileSize={1000000}
-                                    previewWidth={130}
-                                    onSelect={onFileSelect}
-                                    chooseLabel="Select image"
+                                    <FileUpload
+                                        className="BotonChose "
+                                        ref={fileUploadRef}
+                                        mode="basic"
+                                        accept="image/*"
+                                        maxFileSize={1000000}
+                                        previewWidth={130}
+                                        onSelect={onFileSelect}
+                                        chooseLabel="Select image"
 
-                                />
-                                )} 
+                                    />
+                                )}
                             </div>
                         </div>
                     </div>

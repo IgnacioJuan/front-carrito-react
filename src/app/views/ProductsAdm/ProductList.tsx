@@ -55,7 +55,7 @@ export const ProductList = () => {
   };
 
   const imageBodyTemplate = (rowData: IProduct) => {
-    return <img src={base64ToImage(rowData.foto)} alt={rowData.nom_Producto} width="150" height="150" />;
+    return <img className="imagen" src={base64ToImage(rowData.foto)} alt={rowData.nom_Producto}  />;
   };
   //HTML
   return (
@@ -85,7 +85,7 @@ export const ProductList = () => {
               <Column field="descripcion" header="DESCRIPTION"></Column>
               <Column field="valor_unitario" header="UNIT VALUE"></Column>
               <Column field="foto" header="IMAGE" body={imageBodyTemplate} />
-              <Column field="categoria.id_categoria" header="CATEGORY"></Column>
+              <Column field="categoria.nombre_categoria" header="CATEGORY"></Column>
 
             </DataTable>
             <br />
