@@ -1,6 +1,9 @@
 .navbar{
     padding: 3rem 0;
     width: 100%;
+    position: sticky;
+    top: 0; /* Define la posición en la que se volverá fijo */
+    z-index: 100; 
 }
 .navbar-collapse{
     position: fixed;
