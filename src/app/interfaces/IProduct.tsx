@@ -1,3 +1,5 @@
+import { ICategory } from "./ICategory";
+
 export interface IProduct{
     id_producto?: number;
     nom_Producto: string;
@@ -6,6 +8,6 @@ export interface IProduct{
     valor_unitario: number;
     foto:string;
     enabled:boolean;
-    categoria:Object;
+    categoria:ICategory;
 
 }
