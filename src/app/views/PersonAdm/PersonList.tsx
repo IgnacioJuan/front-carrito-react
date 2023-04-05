@@ -6,36 +6,35 @@ import React, { useState, useRef, useContext } from "react";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 import { Divider } from "primereact/divider";
-import ProductsForm from "./ProductForm";
-import { ProductContext } from "./ProductContext";
+import PersonForm from "./PersonForm";
+import { PersonContext } from "./PersonContext";
 import { useNavigate } from "react-router-dom";
-import { IProduct } from "../../interfaces/IProduct";
 
-export const ProductList = () => {
+export const PersonList = () => {
   //Codigo para llenar la tabla segun un array
-  const { findProduct, products } = useContext(ProductContext);
+  const { findPerson, people } = useContext(PersonContext);
   const navigate = useNavigate();
   const [seleccion, setSeleccion] = useState();
 
   const redireccion = () => navigate("/");
 
-  //Para el dialog de la creacion de productos
+  //Para el dialog de la creacion de personas
   const [isVisible, setIsVisible] = useState(false);
   const [confirm, setConfirm] = useState(false);
   const toast = useRef(null);
 
-  const saveProduct = (id: any) => {
-    findProduct(id);
+  const savePerson = (id: any) => {
+    findPerson(id);
     setIsVisible(true);
   };
-  const newProduct = (e: any) => {
+  const newPerson = (e: any) => {
     setSeleccion(e.target.id.slice(0, -1));
     setIsVisible(true);
   };
 
   const header = (
     <div className="flex flex-wrap align-items-center justify-content-between ">
-      <span className="text-xl text-900 font-bold">PRODUCTS LIST</span>
+      <span className="text-xl text-900 font-bold">PEOPLE LIST</span>
       <Divider />
       <div
         id="busqueda"
@@ -47,62 +46,49 @@ export const ProductList = () => {
       >
         <Button
           style={{ margin: "0 auto", textAlign: "center" }}
-          onClick={newProduct}
+          onClick={newPerson}
         >
-          New Product
+          New Person
         </Button>
       </div>
     </div>
   );
 
-  const base64ToImage = (base64String: string) => {
-    return `data:image/jpeg;base64,${base64String}`;
-  };
-
-  const imageBodyTemplate = (rowData: IProduct) => {
-    return (
-      <img
-        src={base64ToImage(rowData.foto)}
-        alt={rowData.nom_Producto}
-        width="150"
-        height="150"
-      />
-    );
-  };
   //HTML
   return (
     <>
       <div>
         <Toast ref={toast} />
-        {/* Card de el product y la tabla de products */}
+        {/* Card of person and person's table */}
         <div className="linea">
           <Card className="table">
-            {/* Tabla de products */}
+            {/* person's table */}
             <DataTable
               header={header}
-              value={products}
+              value={people}
               responsiveLayout="scroll"
               style={{ textAlign: "center" }}
               selectionMode="single"
-              onSelectionChange={(e: any) => saveProduct(e.value.id_producto)}
+              onSelectionChange={(e: any) => savePerson(e.value.id_persona)}
               paginator
               rows={5}
               rowsPerPageOptions={[5, 10, 25, 50]}
             >
-              <Column field="id_producto" header="ID"></Column>
-              <Column field="nom_Producto" header="NAME"></Column>
-              <Column field="stock" header="STOCK"></Column>
-              <Column field="descripcion" header="DESCRIPTION"></Column>
-              <Column field="valor_unitario" header="UNIT VALUE"></Column>
-              <Column field="foto" header="IMAGE" body={imageBodyTemplate} />
-              <Column field="categoria.id_categoria" header="CATEGORY"></Column>
+              <Column field="id_persona" header="ID"></Column>
+              <Column field="cedula" header="Identification Card"></Column>
+              <Column field="nombre" header="Name"></Column>
+              <Column field="email" header="Last Name"></Column>
+              <Column field="sexo" header="Sex"></Column>
+              <Column field="telefono" header="Phone"></Column>
+              <Column field="celular" header="Cellphone"></Column>
+              <Column field="codigo_postal" header="Portal Code"></Column>
             </DataTable>
             <br />
             <Divider />
           </Card>
         </div>
       </div>
-      <ProductsForm
+      <PersonForm
         isVisible={isVisible}
         setIsVisible={setIsVisible}
         seleccion={seleccion}
