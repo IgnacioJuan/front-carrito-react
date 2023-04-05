@@ -8,11 +8,11 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className='navbar'>
+            <nav className='navbar bg-dark'>
                 <div className='container'>
                     <div className='navbar-content'>
                         <div className='brand-and-toggler flex flex-sb'>
-                            <a href="/" className='navbar-brand text-uppercase fw-7 text-white ls-2 fs-22'>alex</a>
+                            <a href="/home" className='navbar-brand text-uppercase fw-7 text-white ls-2 fs-22'>HOME</a>
                             <button type="button" className='navbar-open-btn text-white' onClick={() => setNavToggler(!navToggler)}>
                                 <FaBars size={30} />
                             </button>
