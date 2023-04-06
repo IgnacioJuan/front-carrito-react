@@ -7,7 +7,7 @@ export class RolService {
     return axios.get(this.baseUrl + "listar").then((res) => res.data);
   }
   save(user: any) {
-    return axios.post(this.baseUrl + " crear", user).then((res) => res.data);
+    return axios.post(this.baseUrl + "crear", user).then((res) => res.data);
   }
   // /eliminar/{id}
   delete(user: any) {

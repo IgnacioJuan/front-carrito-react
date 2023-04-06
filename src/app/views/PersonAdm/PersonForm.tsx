@@ -10,6 +10,7 @@ const PersonForm = (props: any) => {
   //For the dialog state
   const { isVisible, setIsVisible, toast } = props;
   const [confirm, setConfirm] = useState(false);
+  const [requiredFieldsEmpty, setRequiredFieldsEmpty] = useState(false);
   //For the register of a person
   const initialPersonState = {
     id_persona: 0,
@@ -21,7 +22,7 @@ const PersonForm = (props: any) => {
     telefono: "",
     celular: "",
     codigo_postal: "",
-    enabled: false,
+    enabled: true,
   };
   const [personData, setPersonData] = useState<IPerson>(initialPersonState);
   const {
@@ -31,6 +32,23 @@ const PersonForm = (props: any) => {
     editPerson,
     setEditPerson,
   } = useContext(PersonContext);
+
+  useEffect(() => {
+    if (editPerson)
+      setPersonData({
+        id_persona: editPerson.id_persona,
+        cedula: editPerson.cedula,
+        nombre: editPerson.nombre,
+        apellido: editPerson.apellido,
+        email: editPerson.email,
+        sexo: editPerson.sexo,
+        telefono: editPerson.telefono,
+        celular: editPerson.celular,
+        codigo_postal: editPerson.codigo_postal,
+        enabled:editPerson.enabled
+      });
+  }, [editPerson]);
+
   useEffect(() => {
     setPersonData({
       ...personData,
@@ -86,10 +104,8 @@ const PersonForm = (props: any) => {
 
     console.log(personData);
   };
-  const [requiredFieldsEmpty, setRequiredFieldsEmpty] = useState(false);
   const validateInputs = () => {
     if (
-      !personData.id_persona ||
       !personData.cedula ||
       !personData.nombre ||
       !personData.apellido ||

@@ -9,7 +9,6 @@ import { Divider } from "primereact/divider";
 import RolForm from "./RolForm";
 import { RolContext } from "./RolContext";
 import { useNavigate } from "react-router-dom";
-import { IRol } from "../../interfaces/IRol";
 
 export const RolList = () => {
 
@@ -38,7 +37,7 @@ export const RolList = () => {
 
   const header = (
     <div className="flex flex-wrap align-items-center justify-content-between " >
-      <span className="text-xl text-900 font-bold">roles LIST</span>
+      <span className="text-xl text-900 font-bold">ROLES LIST</span>
       <Divider />
       <div
         id="busqueda"
@@ -67,12 +66,12 @@ export const RolList = () => {
               responsiveLayout="scroll"
               style={{ textAlign: "center" }}
               selectionMode="single"
-              onSelectionChange={(e: any) => saveRol(e.value.id_rol)}
+              onSelectionChange={(e: any) => saveRol(e.value.rolId)}
               paginator
               rows={5}
               rowsPerPageOptions={[5, 10, 25, 50]}
             >
-              <Column field="id_rol" header="ID"></Column>
+              <Column field="rolId" header="ID"></Column>
               <Column field="rolNombre" header="Nombre del Rol"></Column>
               <Column field="descripcion" header="Descripcion"></Column>
 

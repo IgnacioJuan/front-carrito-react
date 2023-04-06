@@ -77,7 +77,8 @@ export const PersonList = () => {
               <Column field="id_persona" header="ID"></Column>
               <Column field="cedula" header="Identification Card"></Column>
               <Column field="nombre" header="Name"></Column>
-              <Column field="email" header="Last Name"></Column>
+              <Column field="apellido" header="Last Name"></Column>
+              <Column field="email" header="Email"></Column>
               <Column field="sexo" header="Sex"></Column>
               <Column field="telefono" header="Phone"></Column>
               <Column field="celular" header="Cellphone"></Column>
