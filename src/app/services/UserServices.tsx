@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export class UserService {
-  baseUrl = "http://localhost:8080/api/usuarios/";
+  baseUrl = "http://localhost:8080/usuarios/";
 
   getAll() {
     return axios.get(this.baseUrl + "users/all").then((res) => res.data);

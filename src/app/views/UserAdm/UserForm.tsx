@@ -4,6 +4,7 @@ import { Button } from "primereact/button";
 import { UserContext } from "./UserContext";
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
+import { Password } from "primereact/password";
 import "../../styles/User.css";
 import { IUser } from "../../interfaces/IUser";
 import { IRol } from "../../interfaces/IRol";
@@ -16,25 +17,44 @@ const UserForm = (props: any) => {
   const { isVisible, setIsVisible, toast } = props;
   const [confirm, setConfirm] = useState(false);
   //roles variables
-  const [selectedRol, setselectedRol] = useState<IRol | null>(null);
-  const [selectedPerson, setselectedPerson] = useState<IPerson | null>(null);
+  const [selectedRol, setSelectedRol] = useState<IRol | null>(null);
+  const [selectedPerson, setSelectedPerson] = useState<IPerson | null>(null);
 
   const [roles, setRoles] = useState<IRol[]>([]);
   const rolService = new RolService();
 
   const [people, setPeople] = useState<IPerson[]>([]);
   const personService = new PersonService();
-  //For the products
+
+  //For the user
   const initialUserState = {
     id_usuario: 0,
     username: "",
-    password: "string",
-    persona: {},
-    rol: {},
+    password: "",
+    persona: {
+      id_persona: 0,
+      cedula: "",
+      nombre: "",
+      apellido: "",
+      email: "",
+      sexo: "",
+      telefono: "",
+      celular: "",
+      codigo_postal: "",
+      enabled: true,
+    },
+    rol: {
+      rolId: 0,
+      rolNombre: "",
+      descripcion: "",
+    },
   };
   const [userData, setUserData] = useState<IUser>(initialUserState);
   const { createUser, deleteUser, updateUser, editUser, setEditUser } =
     useContext(UserContext);
+  useEffect(() => {
+    if (editUser) setUserData(editUser);
+  }, [editUser]);
   useEffect(() => {
     if (editUser) setUserData(editUser);
   }, [editUser]);
@@ -103,9 +123,19 @@ const UserForm = (props: any) => {
   };
 
   //For the dropdown
-  const selectedPacientTemplate = (option: any, props: any) => {
+  const selectedRolTemplate = (option: any, props: any) => {
     if (option) {
-      return <div className="flex align-items-center">{option.nombre}</div>;
+      return <div className="flex align-items-center">{option.rolNombre}</div>;
+    }
+    return <span>{props.placeholder}</span>;
+  };
+  const selectedPersonTemplate = (option: any, props: any) => {
+    if (option) {
+      return (
+        <div className="flex align-items-center">
+          {option.nombre +' '+ option.apellido}
+        </div>
+      );
     }
     return <span>{props.placeholder}</span>;
   };
@@ -114,30 +144,29 @@ const UserForm = (props: any) => {
     return <>{option.rolNombre}</>;
   };
   function onRolChange(rol: any) {
-    setselectedRol(rol);
+    setSelectedRol(rol);
   }
   useEffect(() => {
     rolService.getAll().then((data) => {
       setRoles(data);
     });
   }, []);
-  //To convert the image+
 
-  // function onFileSelect(event: any) {
-  //     const file = event.files[0];
-  //     const reader = new FileReader();
-  //     reader.onload = function (e: any) {
-  //         const buffer = e.target.result;
-  //         const byteArray = new Uint8Array(buffer);
-  //         onInputChange(byteArray, "foto");
-  //     };
-  //     reader.readAsArrayBuffer(file);
-  // }
+  const personOptionTemplate = (option: any) => {
+    return <>{option.nombre +' '+ option.apellido}</>;
+  };
+  function onPersonChange(person: any) {
+    setSelectedPerson(person);
+  }
+  useEffect(() => {
+    personService.getAll().then((data) => {
+      setPeople(data);
+    });
+  }, []);
 
   return (
     <>
       {/* Dialogo para la creacion de una product*/}
-      {/* <Button label="Show" icon="pi pi-external-link" onClick={() => setVisible(true)} /> */}
       <Dialog
         className="DialogoCentrado"
         header="NEW USER"
@@ -149,7 +178,7 @@ const UserForm = (props: any) => {
           setEditUser(null);
           setUserData(initialUserState);
         }}
-        style={{ width: "800px" }}
+        style={{ width: "300px" }}
         breakpoints={{ "960px": "75vw", "641px": "100vw" }}
       >
         <div className="card flex flex-wrap gap-3">
@@ -166,19 +195,18 @@ const UserForm = (props: any) => {
               </span>
             </div>
           </div>
-        </div>
-
-        <div className="input-container">
-          <div className="p-inputgroup">
-            <span className="p-float-label card flex justify-content-center">
-              <InputText
-                id="password"
-                name="password"
-                value={userData.password}
-                onChange={(e) => onInputChange(e.target.value, "password")}
-              />
-              <label htmlFor="password">Password</label>
-            </span>
+          <div className="input-container">
+            <div className="p-inputgroup">
+              <span className="p-float-label card flex justify-content-center">
+                <Password
+                  id="password"
+                  name="password"
+                  value={userData.password}
+                  onChange={(e) => onInputChange(e.target.value, "password")}
+                />
+                <label htmlFor="password">Password</label>
+              </span>
+            </div>
           </div>
         </div>
 
@@ -188,7 +216,7 @@ const UserForm = (props: any) => {
               <div className="card flex justify-content-center elementosDialog">
                 <Dropdown
                   filter
-                  valueTemplate={selectedPacientTemplate}
+                  valueTemplate={selectedRolTemplate}
                   itemTemplate={rolOptionTemplate}
                   value={userData.rol}
                   onChange={(e) => {
@@ -197,7 +225,28 @@ const UserForm = (props: any) => {
                   }}
                   options={roles}
                   optionLabel="rolNombre"
-                  placeholder="Select One rol"
+                  placeholder="Select one rol"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="card flex flex-wrap justify-content-center gap-3">
+          <div className="input-container2">
+            <div className="p-inputgroup">
+              <div className="card flex justify-content-center elementosDialog">
+                <Dropdown
+                  filter
+                  valueTemplate={selectedPersonTemplate}
+                  itemTemplate={personOptionTemplate}
+                  value={userData.persona}
+                  onChange={(e) => {
+                    onPersonChange(e.value);
+                    onInputChange(e.target.value, "persona");
+                  }}
+                  options={people}
+                  optionLabel="nombre"
+                  placeholder="Select one person"
                 />
               </div>
             </div>

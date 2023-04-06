@@ -18,6 +18,10 @@ export const UserList = () => {
 
   const redireccion = () => navigate("/");
 
+  function renderPassword(data:any) {
+    return "*".repeat(data.password.length);
+  }
+
   //Para el dialog de la creacion de productos
   const [isVisible, setIsVisible] = useState(false);
   const [confirm, setConfirm] = useState(false);
@@ -74,10 +78,20 @@ export const UserList = () => {
               rowsPerPageOptions={[5, 10, 25, 50]}
             >
               <Column field="id_usuario" header="ID"></Column>
-              <Column field="username" header="NAME"></Column>
-              <Column field="password" header="STOCK"></Column>
-              <Column field="persona.nombre" header="DESCRIPTION"></Column>
-              <Column field="rol.rolNombre" header="UNIT VALUE"></Column>
+              <Column field="username" header="USERNAME"></Column>
+              <Column
+                field="password"
+                header="PASSWORD"
+                body={renderPassword}
+              ></Column>
+              <Column
+                field="persona.nombre"
+                header="NAME"
+                body={(rowData) =>
+                  `${rowData.persona.nombre} ${rowData.persona.apellido}`
+                }
+              />
+              <Column field="rol.rolNombre" header="ROL"></Column>
             </DataTable>
             <br />
             <Divider />
