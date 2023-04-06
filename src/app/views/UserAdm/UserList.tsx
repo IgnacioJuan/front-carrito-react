@@ -1,0 +1,96 @@
+import "../../styles/User.css";
+import { Card } from "primereact/card";
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
+import React, { useState, useRef, useContext } from "react";
+import { Button } from "primereact/button";
+import { Toast } from "primereact/toast";
+import { Divider } from "primereact/divider";
+import UserForm from "./UserForm";
+import { UserContext } from "./UserContext";
+import { useNavigate } from "react-router-dom";
+
+export const UserList = () => {
+  //Codigo para llenar la tabla segun un array
+  const { findUser, users } = useContext(UserContext);
+  const navigate = useNavigate();
+  const [seleccion, setSeleccion] = useState();
+
+  const redireccion = () => navigate("/");
+
+  //Para el dialog de la creacion de productos
+  const [isVisible, setIsVisible] = useState(false);
+  const [confirm, setConfirm] = useState(false);
+  const toast = useRef(null);
+
+  const saveUser = (id: any) => {
+    findUser(id);
+    setIsVisible(true);
+  };
+  const newUser = (e: any) => {
+    setSeleccion(e.target.id.slice(0, -1));
+    setIsVisible(true);
+  };
+
+  const header = (
+    <div className="flex flex-wrap align-items-center justify-content-between ">
+      <span className="text-xl text-900 font-bold">USER LIST</span>
+      <Divider />
+      <div
+        id="busqueda"
+        style={{
+          alignItems: "center",
+          paddingLeft: "75px",
+          paddingRight: "75px",
+        }}
+      >
+        <Button
+          style={{ margin: "0 auto", textAlign: "center" }}
+          onClick={newUser}
+        >
+          New User
+        </Button>
+      </div>
+    </div>
+  );
+  //HTML
+  return (
+    <>
+      <div>
+        <Toast ref={toast} />
+        {/* Card de el product y la tabla de users */}
+        <div className="linea">
+          <Card className="table">
+            {/* Tabla de users */}
+            <DataTable
+              header={header}
+              value={users}
+              responsiveLayout="scroll"
+              style={{ textAlign: "center" }}
+              selectionMode="single"
+              onSelectionChange={(e: any) => saveUser(e.value.id_usuario)}
+              paginator
+              rows={5}
+              rowsPerPageOptions={[5, 10, 25, 50]}
+            >
+              <Column field="id_usuario" header="ID"></Column>
+              <Column field="username" header="NAME"></Column>
+              <Column field="password" header="STOCK"></Column>
+              <Column field="persona.nombre" header="DESCRIPTION"></Column>
+              <Column field="rol.rolNombre" header="UNIT VALUE"></Column>
+            </DataTable>
+            <br />
+            <Divider />
+          </Card>
+        </div>
+      </div>
+      <UserForm
+        isVisible={isVisible}
+        setIsVisible={setIsVisible}
+        seleccion={seleccion}
+        setSeleccion={setSeleccion}
+        toast={toast}
+      />
+    </>
+  );
+};

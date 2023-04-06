@@ -32,10 +32,10 @@ const Navbar = () => {
                                         <a href="/catalogue" className='nav-link text-white ls-1 text-uppercase fw-6 fs-22'>Catalogue</a>
                                     </li>
                                     <li className='nav-item'>
-                                        <a href="/" className='nav-link text-white ls-1 text-uppercase fw-6 fs-22'>4</a>
+                                        <a href="/persona" className='nav-link text-white ls-1 text-uppercase fw-6 fs-22'>Persona</a>
                                     </li>
                                     <li className='nav-item'>
-                                        <a href="/" className='nav-link text-white ls-1 text-uppercase fw-6 fs-22'>5</a>
+                                        <a href="/rol" className='nav-link text-white ls-1 text-uppercase fw-6 fs-22'>Rol</a>
                                     </li>
                                 </ul>
                             </div>
