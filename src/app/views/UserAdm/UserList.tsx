@@ -18,11 +18,12 @@ export const UserList = () => {
 
   const redireccion = () => navigate("/");
 
-  function renderPassword(data:any) {
+  //Funcion para remplazar la contraseña por *
+  function renderPassword(data: any) {
     return "*".repeat(data.password.length);
   }
 
-  //Para el dialog de la creacion de productos
+  //Para el dialog de la creacion de usuario
   const [isVisible, setIsVisible] = useState(false);
   const [confirm, setConfirm] = useState(false);
   const toast = useRef(null);
@@ -62,10 +63,10 @@ export const UserList = () => {
     <>
       <div>
         <Toast ref={toast} />
-        {/* Card de el product y la tabla de users */}
+        {/* Card del Usuario y la tabla de Usuarios */}
         <div className="linea">
           <Card className="table">
-            {/* Tabla de users */}
+            {/* Tabla Users */}
             <DataTable
               header={header}
               value={users}
@@ -75,6 +76,7 @@ export const UserList = () => {
               onSelectionChange={(e: any) => saveUser(e.value.id_usuario)}
               paginator
               rows={5}
+              //Paginacion
               rowsPerPageOptions={[5, 10, 25, 50]}
             >
               <Column field="id_usuario" header="ID"></Column>
@@ -87,6 +89,7 @@ export const UserList = () => {
               <Column
                 field="persona.nombre"
                 header="NAME"
+                //Concatenacion del Nombre y Apellido de Persona 
                 body={(rowData) =>
                   `${rowData.persona.nombre} ${rowData.persona.apellido}`
                 }
