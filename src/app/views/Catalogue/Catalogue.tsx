@@ -7,134 +7,57 @@ import { Tag } from 'primereact/tag';
 import { ProductService } from '../../services/ProductServices';
 import { IProduct } from '../../interfaces/IProduct';
 import { Card } from 'primereact/card';
+import { useSelector, useDispatch } from 'react-redux';
+import { addProductToCart, removeProductFromCart } from '../../reducers/cart/cartSlice';
 
 import "../../styles/Catalogue.css";
 
 
 
-export default function Catalogue() {
-    const [products, setProducts] = useState<IProduct[]>([]);
+export default function Catalogue({ products }: { products: IProduct[] }) {
+    // const [products, setProducts] = useState<IProduct[]>([]);
     const productService = new ProductService();
-    const [layout, setLayout] = useState('grid');
+    const dispatch = useDispatch();
 
-    useEffect(() => {
-        productService.getAll().then((data) => setProducts(data));
-    }, []);
+    const { productsList } = useSelector((state: any) => state?.cart);
 
-    const getSeverity = (product: IProduct) => {
-        switch (product.stock) {
+    // useEffect(() => {
+    //   productService.getAll().then((data) => setProducts(data));
+    // }, []);
 
-            case 1:
-                return 'warning';
-
-            case 0:
-                return 'danger';
-
-            default:
-                return 'success';
+    const handleAddOrRemoveProduct = (productId: any) => {
+        const product = products.find(product => product.id_producto === productId);
+        if (productsList.find((pdt: any) => pdt.id_producto === productId)) {
+            dispatch(removeProductFromCart(productId));
+        } else {
+            dispatch(addProductToCart(product));
         }
     };
 
-    const listItem = (product: IProduct) => {
-        return (
-            <div className="col-12 sm:col-6 lg:col-12 xl:col-4 p-2">
-                <div className="p-4 border-1 surface-border surface-card border-round">
-                    <div className="flex flex-wrap align-items-center justify-content-between gap-2">
-                        <div className="flex align-items-center gap-2">
-                            <i className="pi pi-tag"></i>
-                            <span className="font-semibold">{product.categoria.nombre_categoria}</span>
-                        </div>
-                        <Tag value={product.stock} severity={getSeverity(product)}></Tag>
-                    </div>
-                    <div className="flex flex-column align-items-center gap-3 py-5">
-                        <div className="elementoImg "
-                        >
-                            <img className="imagen" src={`data:image/jpeg;base64,${product.foto}`} alt="Preview" />
-                            <br />
-                        </div>
-                        {/* <img className="w-9 shadow-2 border-round" src={`https://primefaces.org/cdn/primereact/images/product/${product.image}`} alt={product.name} /> */}
-                        <div className="text-2xl font-bold">{product.nom_Producto}</div>
-                        {/* <Rating value={product.rating} readOnly cancel={false}></Rating> */}
-                    </div>
-                    <div className="flex align-items-center justify-content-between">
-                        <span className="text-2xl font-semibold">${product.valor_unitario}</span>
-                        <Button icon="pi pi-shopping-cart" className="p-button-rounded" disabled={product.stock === 0}></Button>
-                    </div>
-                </div>
-            </div>
-        );
-    };
-
-    const gridItem = (product: IProduct) => {
-        return (
-            <></>
-            // <div className="col-12 sm:col-6 lg:col-12 xl:col-4 p-2">
-            //     <div className="p-4 border-1 surface-border surface-card border-round">
-            //         <div className="flex flex-wrap align-items-center justify-content-between gap-2">
-            //             <div className="flex align-items-center gap-2">
-            //                 <i className="pi pi-tag"></i>
-            //                 <span className="font-semibold">{product.categoria.nombre_categoria}</span>
-            //             </div>
-            //             <Tag value={product.stock} severity={getSeverity(product)}></Tag>
-            //         </div>
-            //         <div className="flex flex-column align-items-center gap-3 py-5">
-            //                 <img  src={`data:image/jpeg;base64,${product.foto}`} alt="Preview" />
-            //             {/* <img className="w-9 shadow-2 border-round" src={`https://primefaces.org/cdn/primereact/images/product/${product.image}`} alt={product.name} /> */}
-            //             <div className="text-2xl font-bold">{product.nom_Producto}</div>
-            //             {/* <Rating value={product.rating} readOnly cancel={false}></Rating> */}
-            //         </div>
-            //         <div className="flex align-items-center justify-content-between">
-            //             <span className="text-2xl font-semibold">${product.valor_unitario}</span>
-            //             <Button icon="pi pi-shopping-cart" className="p-button-rounded" disabled={product.stock === 0}></Button>
-            //         </div>
-            //     </div>
-            // </div>
-
-
-        );
-    };
-
-    const itemTemplate = (product: IProduct, layout: string) => {
-        if (!product) {
-            return;
-        }
-
-        if (layout === 'list') return listItem(product);
-        else if (layout === 'grid') return gridItem(product);
-    };
-
-    const header = () => {
-        return (
-            <div className="flex justify-content-end">
-                <DataViewLayoutOptions onChange={(e) => setLayout(e.value)} />
-            </div>
-        );
-    };
-    const footer = (
-        <div className="flex flex-wrap justify-content-end gap-2">
-            <Button label="Save" icon="pi pi-check" />
-            <Button label="Cancel" icon="pi pi-times" className="p-button-outlined p-button-secondary" />
-        </div>
-    );
     return (
-        // <div className="card">
-        //     <DataView value={products} itemTemplate={itemTemplate} header={header()} />
-        // </div>
-        <div className="p-grid">
-            {products.map(product => (
-                <div key={product.id_producto} className="p-col-12 p-sm-6 p-md-4 p-lg-3">
-                    <Card title={product.nom_Producto} subTitle="Subtitle" footer={footer} header={header} className="md:w-25rem">
-                        <p className="m-0">
-                            
-                                <img className="imagen" src={`data:image/jpeg;base64,${product.foto}`} alt="Preview" />
-                            
-                            <p>{product.descripcion}</p>
-                            <p>Stock: {product.stock}</p>
-                            <p>Valor Unitario: {product.valor_unitario}</p>
-                        </p>
-                    </Card>
-                </div>
-            ))}
-        </div>
+        <>
+            <h2>Listado de productos</h2>
+            <div className="row">
+                {
+                    products.map(product => {
+                        return (
+                            <div key={product.id_producto} className="col-3 mt-3 cadr">
+                                <h4>{product.nom_Producto}</h4>
+                                    <img className="imagen" src={`data:image/jpeg;base64,${product.foto}`} alt="Preview" />
+                                
+                                <p><b>Price:</b> {product.valor_unitario}</p>
+                                <p><b>Category:</b> {product.categoria.nombre_categoria}</p>
+                                <button
+                                    className={`btn ${productsList.find((pdt: any) => pdt.id_producto === product.id_producto) ? "btn-danger" : "btn-success"}`}
+                                    onClick={() => handleAddOrRemoveProduct(product.id_producto)}
+                                >
+                                    {productsList.find((pdt: any) => pdt.id_producto === product.id_producto) ? "Remove" : "Add"} to Cart
+                                </button>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+        </>
     )
 }

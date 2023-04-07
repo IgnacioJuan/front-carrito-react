@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import "./App.css";
 import { Footer } from "./app/common/Footer";
 import Header from "./app/common/Header";
@@ -25,17 +25,28 @@ import RolContextProvider from "./app/views/RolAdm/RolContext";
 import ProductContextProvider from "./app/views/ProductsAdm/ProductContext";
 import CategoryContextProvider from "./app/views/CategoryAdm/CategoryContext";
 import UserContextProvider from "./app/views/UserAdm/UserContext";
+import Navbar from "./app/views/Navbar/Navbar";
+import { IProduct } from "./app/interfaces/IProduct";
+import { ProductService } from "./app/services/ProductServices";
+import { Cart } from "./app/views/Catalogue/Cart";
 
 function App() {
+  const [products, setProducts] = useState<IProduct[]>([]);
+  const productService = new ProductService();
+  useEffect(() => {
+    productService.getAll().then((data) => setProducts(data));
+  }, []);
+
   return (
     <>
-      <Header></Header>
+
       <BrowserRouter>
+        <Navbar></Navbar>
         <Switch>
           <Route path="/home">
             <Home />{" "}
           </Route>
-          <Route exact path="/category">
+          <Route path="/category">
             <CategoryContextProvider>
               <CategoryList></CategoryList>
             </CategoryContextProvider>
@@ -63,11 +74,15 @@ function App() {
           </Route>
 
           <Route path="/catalogue">
-            <Catalogue />
+            <Catalogue products={products} />
+          </Route>
+          <Route path="/cart"  >
+            <Cart />
           </Route>
           <Route path="*">
             <NotFound />
           </Route>
+
         </Switch>
       </BrowserRouter>
       <div className="footer-container">
