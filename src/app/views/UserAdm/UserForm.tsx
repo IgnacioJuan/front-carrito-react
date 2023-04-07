@@ -133,7 +133,7 @@ const UserForm = (props: any) => {
     if (option) {
       return (
         <div className="flex align-items-center">
-          {option.nombre +' '+ option.apellido}
+          {option.nombre + " " + option.apellido}
         </div>
       );
     }
@@ -153,7 +153,7 @@ const UserForm = (props: any) => {
   }, []);
 
   const personOptionTemplate = (option: any) => {
-    return <>{option.nombre +' '+ option.apellido}</>;
+    return <>{option.nombre + " " + option.apellido}</>;
   };
   function onPersonChange(person: any) {
     setSelectedPerson(person);
@@ -202,6 +202,7 @@ const UserForm = (props: any) => {
                   id="password"
                   name="password"
                   value={userData.password}
+                  style={{ fontSize: "15px" }}
                   onChange={(e) => onInputChange(e.target.value, "password")}
                 />
                 <label htmlFor="password">Password</label>
@@ -240,6 +241,7 @@ const UserForm = (props: any) => {
                   valueTemplate={selectedPersonTemplate}
                   itemTemplate={personOptionTemplate}
                   value={userData.persona}
+                  style={{ fontSize: "15px" }}
                   onChange={(e) => {
                     onPersonChange(e.value);
                     onInputChange(e.target.value, "persona");

@@ -8,18 +8,14 @@ import { Toast } from "primereact/toast";
 import { Divider } from "primereact/divider";
 import RolForm from "./RolForm";
 import { RolContext } from "./RolContext";
-import { useNavigate } from "react-router-dom";
+
 
 export const RolList = () => {
 
   //Codigo para llenar la tabla segun un array
   const { findRol, roles } = useContext(RolContext);
-  const navigate = useNavigate();
   const [seleccion, setSeleccion] = useState();
 
-  const redireccion = () => (
-    navigate('/')
-  )
 
   //Para el dialog de la creacion de roles
   const [isVisible, setIsVisible] = useState(false);

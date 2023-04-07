@@ -8,19 +8,14 @@ import { Toast } from "primereact/toast";
 import { Divider } from "primereact/divider";
 import ProductsForm from "./ProductForm";
 import { ProductContext } from "./ProductContext";
-import { useNavigate } from "react-router-dom";
 import { IProduct } from "../../interfaces/IProduct";
 
 export const ProductList = () => {
 
   //Codigo para llenar la tabla segun un array
   const { findProduct, products } = useContext(ProductContext);
-  const navigate = useNavigate();
   const [seleccion, setSeleccion] = useState();
 
-  const redireccion = () => (
-    navigate('/')
-  )
 
   //Para el dialog de la creacion de productos
   const [isVisible, setIsVisible] = useState(false);

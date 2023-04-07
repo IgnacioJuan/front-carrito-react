@@ -9,7 +9,12 @@ import { RolList } from "./app/views/RolAdm/RolList";
 import { CategoryList } from "./app/views/CategoryAdm/CategoryList";
 import { UserList } from "./app/views/UserAdm/UserList";
 
-import {BrowserRouter,BrowserRouter as Router,Route,Routes,} from "react-router-dom";
+import {
+  BrowserRouter,
+  BrowserRouter as Router,
+  Route,
+  Switch,
+} from "react-router-dom";
 
 import Home from "./app/views/dashboard/home/Home";
 import { NotFound } from "./app/views/NotFound";
@@ -26,51 +31,44 @@ function App() {
     <>
       <Header></Header>
       <BrowserRouter>
-        <Routes>
-          <Route path="/home" element={<Home />} />
-          <Route
-            path="/category"
-            element={
-              <CategoryContextProvider>
-                <CategoryList></CategoryList>
-              </CategoryContextProvider>
-            }
-          />
-          <Route
-            path="/product"
-            element={
-              <ProductContextProvider>
-                <ProductList />
-              </ProductContextProvider>
-            }
-          />
-          <Route
-            path="/person"
-            element={
-              <PersonContextProvider>
-                <PersonList />
-              </PersonContextProvider>
-            }
-          />
-          <Route
-            path="/rol"
-            element={
-              <RolContextProvider>
-                <RolList />
-              </RolContextProvider>
-            }
-          />
-          <Route
-            path="/user"
-            element={
-              <UserContextProvider>
-                <UserList />
-              </UserContextProvider>
-            }
-          />
-          <Route path="/catalogue" element={<Catalogue />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <Switch>
+          <Route path="/home">
+            <Home />{" "}
+          </Route>
+          <Route exact path="/category">
+            <CategoryContextProvider>
+              <CategoryList></CategoryList>
+            </CategoryContextProvider>
+          </Route>
+          <Route path="/product">
+            <ProductContextProvider>
+              <ProductList />
+            </ProductContextProvider>
+          </Route>
+          <Route path="/person">
+            <PersonContextProvider>
+              <PersonList />
+            </PersonContextProvider>
+          </Route>
+
+          <Route path="/rol">
+            <RolContextProvider>
+              <RolList />
+            </RolContextProvider>
+          </Route>
+          <Route path="/user">
+            <UserContextProvider>
+              <UserList />
+            </UserContextProvider>
+          </Route>
+
+          <Route path="/catalogue">
+            <Catalogue />
+          </Route>
+          <Route path="*">
+            <NotFound />
+          </Route>
+        </Switch>
       </BrowserRouter>
       <div className="footer-container">
         <Footer />

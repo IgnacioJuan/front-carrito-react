@@ -8,15 +8,12 @@ import { Toast } from "primereact/toast";
 import { Divider } from "primereact/divider";
 import UserForm from "./UserForm";
 import { UserContext } from "./UserContext";
-import { useNavigate } from "react-router-dom";
 
 export const UserList = () => {
   //Codigo para llenar la tabla segun un array
   const { findUser, users } = useContext(UserContext);
-  const navigate = useNavigate();
   const [seleccion, setSeleccion] = useState();
 
-  const redireccion = () => navigate("/");
 
   //Funcion para remplazar la contraseña por *
   function renderPassword(data: any) {
@@ -50,7 +47,7 @@ export const UserList = () => {
         }}
       >
         <Button
-          style={{ margin: "0 auto", textAlign: "center" }}
+          style={{ margin: "0 auto", textAlign: "center", fontSize: "15px" }}
           onClick={newUser}
         >
           New User
@@ -71,7 +68,7 @@ export const UserList = () => {
               header={header}
               value={users}
               responsiveLayout="scroll"
-              style={{ textAlign: "center" }}
+              style={{ textAlign: "center", fontSize: "15px" }}
               selectionMode="single"
               onSelectionChange={(e: any) => saveUser(e.value.id_usuario)}
               paginator
@@ -89,7 +86,7 @@ export const UserList = () => {
               <Column
                 field="persona.nombre"
                 header="NAME"
-                //Concatenacion del Nombre y Apellido de Persona 
+                //Concatenacion del Nombre y Apellido de Persona
                 body={(rowData) =>
                   `${rowData.persona.nombre} ${rowData.persona.apellido}`
                 }

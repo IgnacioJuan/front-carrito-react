@@ -1,4 +1,4 @@
-import { Route, Navigate, Routes } from "react-router-dom";
+import { Route, Redirect, Switch } from "react-router-dom";
 import { NavBar } from "../../common/NavBar";
 import Home from "./home/Home";
 import { Toast } from "primereact/toast";
@@ -29,7 +29,7 @@ export const DashboardRouter = () => {
       <main>
         <div>
           <div>
-            <Routes>
+            <Switch>
               <Route path="/dashboard/home">
                 {rol === 1 && enabled === true ? (
                   <>
@@ -65,9 +65,9 @@ export const DashboardRouter = () => {
                 ) : (
                   <NavBarUserDisabled />
                 )}
-                <Navigate to="/dashboard/home" />
+                <Redirect to="/dashboard/home" />
               </Route>
-            </Routes>
+            </Switch>
           </div>
         </div>
       </main>

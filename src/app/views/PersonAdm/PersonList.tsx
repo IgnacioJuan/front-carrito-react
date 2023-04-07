@@ -8,15 +8,15 @@ import { Toast } from "primereact/toast";
 import { Divider } from "primereact/divider";
 import PersonForm from "./PersonForm";
 import { PersonContext } from "./PersonContext";
-import { useNavigate } from "react-router-dom";
+
 
 export const PersonList = () => {
   //Codigo para llenar la tabla segun un array
   const { findPerson, people } = useContext(PersonContext);
-  const navigate = useNavigate();
+ 
   const [seleccion, setSeleccion] = useState();
 
-  const redireccion = () => navigate("/");
+
 
   //Para el dialog de la creacion de personas
   const [isVisible, setIsVisible] = useState(false);

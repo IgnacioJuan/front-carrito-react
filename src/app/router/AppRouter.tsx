@@ -1,13 +1,11 @@
 import { useContext } from "react";
 import {
-  BrowserRouter,
-  Routes,
+  BrowserRouter as Router,
+  Switch,
   Route,
-  Navigate, // import Navigate instead of Redirect
+  Redirect,
 } from "react-router-dom";
-
 import { AuthRouter } from "../views/auth/Authrouter";
-
 import Home from "../views/dashboard/home/Home";
 import { PrivateRouter } from "./PrivateRouter";
 import { AuthContext } from "../views/store/context/AuthContext";
@@ -26,14 +24,14 @@ export function AppRouter() {
   const { user } = useContext<Context>(AuthContext);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/inicio" element={<Home />} />
-        <Route path="/auth" element={<AuthRouter />} />
+    <Router>
+      <Switch>
+        <Route path="/inicio"><Home /></Route>
+        <Route path="/auth"><AuthRouter /> </Route>
         <PrivateRouter loggedIn={user?.loggedIn} component={DashboardRouter} />
-        <Route path="*" element={<Navigate to="/dashboard/home" />} />{" "}
+        <Redirect to="/dashboard/home" />
         {/* use Navigate instead of Redirect */}
-      </Routes>
-    </BrowserRouter>
+      </Switch>
+    </Router>
   );
 }
