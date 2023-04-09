@@ -1,4 +1,5 @@
 import { ReactElement } from 'react';
+import "../../../../styles/Login.css";
 interface Props{
    children:ReactElement
 }

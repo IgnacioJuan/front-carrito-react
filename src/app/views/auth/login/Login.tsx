@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../store/context/AuthContext";
 import { AuthService } from "../../../services/Auth/AuthService";
 import { Toast } from "primereact/toast";
+import "../../../styles/Login.css";
 
 export function Login() {
   const toast = useRef<Toast>(null);
@@ -28,7 +29,6 @@ export function Login() {
       const rol = resp.rol;
       const enabled = resp.enabled;
       const id = resp.persona.id_persona;
-
       sessionStorage.setItem(
         "user",
         JSON.stringify({ id, rol, enabled, loggedIn: true })

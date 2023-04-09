@@ -10,6 +10,7 @@ import Home from "../views/dashboard/home/Home";
 import { PrivateRouter } from "./PrivateRouter";
 import { AuthContext } from "../views/store/context/AuthContext";
 import { DashboardRouter } from "../views/dashboard/DashboardRouter";
+import Bienvenida from "../views/VentanaInicial/Bienvenida";
 
 interface Context {
   dispatchUser?: any;
@@ -26,8 +27,12 @@ export function AppRouter() {
   return (
     <Router>
       <Switch>
-        <Route path="/inicio"><Home /></Route>
-        <Route path="/auth"><AuthRouter /> </Route>
+        <Route exact path="/inicio">
+          <Bienvenida />
+        </Route>
+        <Route path="/auth">
+          <AuthRouter />{" "}
+        </Route>
         <PrivateRouter loggedIn={user?.loggedIn} component={DashboardRouter} />
         <Redirect to="/dashboard/home" />
         {/* use Navigate instead of Redirect */}

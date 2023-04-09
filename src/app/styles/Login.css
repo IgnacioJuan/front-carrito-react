@@ -1,0 +1,251 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@3030;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+
+}
+
+.body1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #23242a;
+    background-color: #05313A;
+    padding: auto;
+}
+
+header {
+    width: 100%;
+    height: 80px;
+    position: fixed;
+    z-index: 1;
+    padding: 20px;
+}
+
+#box {
+    width: 400px;
+    height: 430px;
+    background: #1c1c1c;
+    position: absolute;
+    border-radius: 8px;
+    overflow: hidden;
+    top: 40%;
+    right: 80px;
+    margin-top: -100px;
+
+
+}
+
+#box::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 380px;
+    height: 420px;
+
+    background: linear-gradient(0deg, transparent,
+            #ffff, #ffff);
+    transform-origin: bottom right;
+    animation: animate 6s linear infinite;
+}
+
+
+#box::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 380px;
+    height: 420px;
+    background: linear-gradient(0deg, transparent,
+            #ffff, #ffff);
+    transform-origin: bottom right;
+    animation: animate 6s linear infinite;
+    animation-delay: -3s;
+}
+
+@keyframes animate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#float-input {
+    width: 100%;
+    margin-top: 10px;
+    position: relative;
+    padding: 20px 10px 10px;
+    border: none;
+    outline: none;
+    color: #23242a;
+    font-size: 1em;
+    letter-spacing: 0.05em;
+}
+
+
+#form {
+    position: absolute;
+    inset: 2px;
+    border-radius: 8px;
+    background: #292929;
+    z-index: 10;
+    padding: 50px 40px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.form h2 {
+    color: #ffff;
+    font-weight: 500;
+    text-align: center;
+    letter-spacing: 0.1em;
+
+}
+
+.inputBox {
+    position: relative;
+    width: 300px;
+    margin-top: 35px;
+}
+
+.inputBox input {
+    position: relative;
+    width: 100px;
+    padding: 20px 10px 10px;
+    border: none;
+    outline: none;
+    color: #23242a;
+    font-size: 1em;
+    letter-spacing: 0.05em;
+
+}
+
+.inputBox span {
+    position: absolute;
+    left: 0;
+    padding: 20px, 10px, 10px;
+    font-size: 1em;
+    color: #413e3e;
+    pointer-events: none;
+    letter-spacing: 0.05em;
+    transition: 0.5s;
+}
+
+.circle {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    /*background: #ccc;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    position: absolute;
+    width: 250px;
+    height: 300px;
+    background-size: cover;
+    filter: brightness(1.5) contrast(1.5);
+    justify-content: center;
+    font-size: 10rem;
+    transform: scale(.7);
+    transform: scale(1.5);
+    animation: .5s infinite alternate linear;
+    inset: 1px;
+
+}
+
+.estatico {
+    position: absolute;
+    width: 500px;
+    height: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    background-size: cover;
+    inset: 1px;
+
+}
+
+.text {
+    position: absolute;
+
+}
+
+.Imagen {
+    position: fixed;
+    top: 220px;
+    left: 170px;
+    padding: 20px;
+}
+
+.container {
+    display: inline-flex;
+}
+
+.container .estatico {
+    color: #fff;
+    font-size: 40px;
+    font-weight: 400;
+}
+
+.container .dinamico {
+    margin-left: 15px;
+    line-height: 90px;
+    height: 90px;
+    overflow: hidden;
+
+}
+
+.dinamico li {
+    color: #ece6e6;
+    list-style: none;
+    font-size: 40px;
+    font-weight: 400;
+    left: 0;
+    position: relative;
+    top: 0;
+    animation: slide 6s steps(4) infinite;
+
+}
+
+.dinamico li span::after {
+
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 150%;
+    left: 0;
+    border-left: px solid #ece6e6;
+    animation: typing 1.5s steps(10) infinite;
+    background: #05313A;
+}
+
+.dinamico li span {
+    position: relative;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+@keyframes slide {
+    100% {
+        top: -360px;
+    }
+}
+
+@keyframes typing {
+    100% {
+        left: 100%;
+        margin: 0 -35px 0 35px;
+    }
+
+}
