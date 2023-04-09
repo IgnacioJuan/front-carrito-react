@@ -87,6 +87,14 @@ export const Navbar: React.FC = () => {
               <li className="nav-item">
                 <Link
                   className="nav-link text-white ls-1 text-uppercase fw-6 fs-22"
+                  to="/cartList"
+                >
+                  History
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  className="nav-link text-white ls-1 text-uppercase fw-6 fs-22"
                   to="/inicio"
                   onClick={eliminarUser}
                 >

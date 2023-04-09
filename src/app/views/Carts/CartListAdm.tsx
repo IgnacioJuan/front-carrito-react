@@ -14,23 +14,19 @@ import { DataTable } from "primereact/datatable";
 import { CartService } from "../../services/CartService";
 import { ICart } from "../../interfaces/ICart";
 
-export const CartList = () => {
+export const CartListAdm = () => {
     //Capturar id_persona de session Storage
     const userData = sessionStorage.getItem("user");
     const userObj = JSON.parse(userData || "{}");
     const id_persona = userObj.id;
-    useEffect(() => {
-        console.log(id_persona)
-    }, []);
     //For the dialog state
     const [cartList, setCartList] = useState<ICart[]>([]);
     const cartService = new CartService();
     useEffect(() => {
         cartService.getAll().then(data => {
-          const filteredData = data.filter((item:any) => item.persona_carrito?.id_persona === id_persona);
-          setCartList(filteredData);
+            setCartList(data);
         })
-      }, []);
+    }, []);
 
     return (
         <>
@@ -46,9 +42,17 @@ export const CartList = () => {
                 <Column field="id_carrito" header="ID"></Column>
                 <Column field="fecha_carrito" header="FECHA"></Column>
                 <Column field="valor_total" header="VALOR_TOTAL"></Column>
+                <Column field="persona_carrito.id_persona" header="CLIENT ID"></Column>
+                <Column  header="CLIENT NAME" 
+                    body={(rowData) =>{
+                            return rowData.persona_carrito?.nombre + " " +rowData.persona_carrito?.apellido
+                    }}
+                          />
+
+
             </DataTable>
 
         </>
     );
 };
-export default CartList;
+export default CartListAdm;
