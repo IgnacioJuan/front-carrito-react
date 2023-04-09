@@ -46,6 +46,8 @@ export const Cart = () => {
   const fecha=new Date();
   const guardar = () => {
     cartService.save({
+      "enabled": true,
+      "estado_carrito": "Pagado",
       "fecha_carrito": fecha,
       "valor_total": subtotal,
       "persona_carrito":{"id_persona":id_persona}
