@@ -18,7 +18,7 @@ import PersonContextProvider from "../PersonAdm/PersonContext";
 import { PersonList } from "../PersonAdm/PersonList";
 import UserContextProvider from "../UserAdm/UserContext";
 import { UserList } from "../UserAdm/UserList";
-import {Navbar} from "../../common/Navbar";
+import {Navbar} from "../../common/NavBar";
 
 export const DashboardRouter = () => {
   //Datos del sessionStorage
@@ -182,12 +182,12 @@ export const DashboardRouter = () => {
                 {rol === 1 && enabled === true ? (
                   <>
                     <NavBarCliente />
-                    <Catalogue products={products} />
+                    <Catalogue  />
                   </>
                 ) : rol === 2 && enabled === true ? (
                   <>
                     <Navbar />
-                    <Catalogue products={products} />
+                    <Catalogue  />
                   </>
                 ) : (
                   <NavBarUserDisabled />

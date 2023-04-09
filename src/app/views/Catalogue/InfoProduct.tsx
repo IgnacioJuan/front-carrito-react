@@ -1,0 +1,186 @@
+import React, { useContext, useState, useEffect, useRef } from "react";
+import { Dialog } from "primereact/dialog";
+import { Button } from "primereact/button";
+import { Slider } from "primereact/slider";
+
+import { InputText } from "primereact/inputtext";
+import { InputNumber } from "primereact/inputnumber";
+import "../../styles/Product.css";
+import { useDispatch, useSelector } from "react-redux";
+import { addProductToCart, removeProductFromCart } from "../../reducers/cart/cartSlice";
+import { ICarDet } from "../../interfaces/ICartDet";
+
+const InfoProduct = (props: any) => {
+    //For the dialog state
+    const { isVisible, setIsVisible, toast, productData } = props;
+    const [confirm, setConfirm] = useState(false);
+    const dispatch = useDispatch();
+    const initialState={
+        "cantidad": 1,
+        "valor_total": 0,
+        "producto": productData
+    }
+    useEffect(() => {
+        setProductDetData({
+            ...productDet
+        });
+    }, [isVisible]);
+    const [productDet, setProductDetData] = useState<ICarDet>(initialState);
+    const { productsList } = useSelector((state: any) => state?.cart);
+    const handleAddOrRemoveProduct = (productId: any) => {
+        if (productsList.find((pdt: ICarDet) => pdt.producto.id_producto === productId)) {
+            dispatch(removeProductFromCart(productId));
+            toast.current.show({
+                severity: "error",
+                summary: "Product removed",
+                detail: "Product removed from Cart",
+            });
+
+        } else {
+            dispatch(addProductToCart({ 
+                ...productDet, 
+                ["producto"]: productData ,
+                ["valor_total"]: productDet.cantidad * productData.valor_unitario,
+            }));
+            
+            toast.current.show({
+                severity: "success",
+                summary: "Added product",
+                detail: "Product added to cart",
+                life: 3000,
+            });
+            
+        }
+        setIsVisible(false)
+        setProductDetData(initialState)
+    };
+
+    const onInputChange = (data: any, field: any) => {
+        setProductDetData({ ...productDet, [field]: data });
+    };
+    return (
+        <>
+            {/* Dialogo para la creacion de una product*/}
+            {/* <Button label="Show" icon="pi pi-external-link" onClick={() => setVisible(true)} /> */}
+            <Dialog
+                className="DialogoCentrado"
+                header="PRODUCT INFORMATION"
+                modal={true}
+                visible={isVisible}
+                contentStyle={{ overflow: "visible" }}
+                onHide={() => {
+                    setIsVisible(false);
+                    setProductDetData(initialState);
+                }}
+
+                style={{ width: "800px" }} breakpoints={{ '960px': '75vw', '641px': '100vw' }}
+            >
+
+                <div className="card flex flex-wrap gap-3">
+                    <div className="input-container">
+                        <div className="p-inputgroup">
+                            <span className="p-float-label card flex justify-content-center">
+                                <InputText
+                                    id="name"
+                                    name="name"
+                                    value={productData.nom_Producto}
+                                />
+                                <label htmlFor="nombre">Name</label>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div className="input-container">
+                        <div className="p-inputgroup">
+                            <span className="p-float-label card flex justify-content-center">
+
+                                <InputNumber
+                                    id="stock"
+                                    name="stock"
+                                    value={productData.stock}
+                                />
+                                <label htmlFor="stock">Stock</label>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div className="input-container">
+                        <div className="p-inputgroup">
+                            <span className="p-float-label card flex justify-content-center">
+
+                                <InputText
+                                    id="description"
+                                    name="description"
+                                    value={productData.descripcion}
+                                />
+                                <label htmlFor="description">Description</label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="card flex flex-wrap justify-content-center gap-3">
+                    <div className="input-container2">
+                        <div className="p-inputgroup">
+                            <span className="p-float-label card flex justify-content-center">
+
+                                <InputText id="currency-us" value={productData.categoria.nombre_categoria} />
+                                <label htmlFor="stock">Category</label>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div className="input-container2">
+                        <div className="p-inputgroup">
+                            <span className="p-float-label card flex justify-content-center">
+
+                                <InputNumber inputId="currency-us" value={productData.valor_unitario}
+                                    mode="currency" currency="USD" locale="en-US" />
+                                <label htmlFor="stock">Unit Value</label>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+                <div className="card flex flex-wrap justify-content-center gap-3">
+                    <div className="input-container3">
+                        <div className="p-inputgroup">
+                            <div className="card justify-content-center elementosDialog">
+                                <div className="elementoImg "
+                                >
+                                    <img className="imagen" src={`data:image/jpeg;base64,${productData.foto}`} alt="Preview" />
+                                    <br />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="card flex flex-wrap justify-content-center gap-3">
+                    <div className="input-container3">
+                        <div className="p-inputgroup">
+                            {productDet.cantidad}
+                        </div>
+
+                    </div>
+
+                </div>
+                <Slider min={1}
+                    max={productData.stock}
+                    value={productDet.cantidad} onChange={(e) => onInputChange(e.value, "cantidad")} className="w-full" />
+
+
+                <div className="input-container3">
+                    <Button
+                        className={`btn ${productsList.find((pdt: ICarDet) => pdt.producto.id_producto === productData.id_producto) ? "btn-danger" : "btn-success"}`}
+                        onClick={() => {handleAddOrRemoveProduct(productData.id_producto);}}
+                    >
+                        {productsList.find((pdt: ICarDet) => pdt.producto.id_producto === productData.id_producto) ? "Remove" : "Add"} to Cart
+                    </Button>
+                </div>
+            </Dialog>
+
+        </>
+    );
+};
+export default InfoProduct;

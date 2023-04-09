@@ -37,6 +37,7 @@ export const CategoryList = () => {
         className=""
         style={{ alignItems: "center", paddingLeft:"75px" , paddingRight:"75px" }}
       >
+        <Button onClick={newCategory}>New Category</Button>
       </div>
     </div>
   );
@@ -45,7 +46,7 @@ export const CategoryList = () => {
     <>
       <div >
         
-      <Button onClick={newCategory}>New Category</Button>
+      
         <Toast ref={toast} />
         {/* Card de el category y la tabla de categorys */}
         <div className="linea">
