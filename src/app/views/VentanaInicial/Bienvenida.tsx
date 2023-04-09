@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles/Header.css";
+import "../../styles/Bienvenida.css";
 import { useHistory } from "react-router-dom";
 
 const Bienvenida = () => {
@@ -10,7 +10,7 @@ const Bienvenida = () => {
     });
   }
   return (
-    <div className="header flex flex-col" id="header">
+    <div className="header flex flex-col" >
       <div className="container flex">
         <div className="header-content">
           <h1 className="text-white fw-6 header-title" id="design">
@@ -26,9 +26,6 @@ const Bienvenida = () => {
             <button type="button" className="btn-item bg-brown fw-4 ls-2" onClick={handleClick}>
               Iniciar Sesión
             </button>
-            {/* <a href="/auth/login" className="aLog">
-            <div>Login</div>
-          </a> */}
             <button type="button" className="btn-item bg-dark fw-4 ls-2">
               Registrarse
             </button>

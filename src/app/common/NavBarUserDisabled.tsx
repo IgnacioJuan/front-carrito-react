@@ -10,10 +10,9 @@ export const NavBarUserDisabled: React.FC = () => {
     <>
       <div>
         <body className="body2">
-          <nav>
-            <div className="icon_diente"></div>
-            <div id="logo">Odontología Integral SM</div>
-
+          <nav id="navDisabled">
+          <div className="icon_digital"></div>
+            <div id="logo">DIGITAL & TECH</div>
             <label htmlFor="drop" className="toggle">
               Menu
             </label>

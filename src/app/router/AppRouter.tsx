@@ -31,7 +31,7 @@ export function AppRouter() {
           <Bienvenida />
         </Route>
         <Route path="/auth">
-          <AuthRouter />{" "}
+          <AuthRouter />
         </Route>
         <PrivateRouter loggedIn={user?.loggedIn} component={DashboardRouter} />
         <Redirect to="/dashboard/home" />

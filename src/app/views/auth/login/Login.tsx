@@ -4,7 +4,10 @@ import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../store/context/AuthContext";
 import { AuthService } from "../../../services/Auth/AuthService";
 import { Toast } from "primereact/toast";
+import { InputText } from "primereact/inputtext";
+import { Button } from "primereact/button";
 import "../../../styles/Login.css";
+import { Card } from "primereact/card";
 
 export function Login() {
   const toast = useRef<Toast>(null);
@@ -26,7 +29,7 @@ export function Login() {
     try {
       e.preventDefault();
       const resp = await AuthService.login(auth);
-      const rol = resp.rol;
+      const rol = resp.rol.rolId;
       const enabled = resp.enabled;
       const id = resp.persona.id_persona;
       sessionStorage.setItem(
@@ -51,51 +54,37 @@ export function Login() {
 
   return (
     <>
-      <Toast ref={toast} />
-      <AuthCard>
-        <form onSubmit={handleSubmit} autoComplete="off">
-          <br />
-          <div className="mb-2 p-1 d-flex border rounded">
-            <input
-              autoFocus
-              className="form-control border-0 txt-input"
-              name="username"
-              placeholder="Usuario"
-              onChange={(e) => handleChange(e)}
-            />
-          </div>
-
-          <div className="mb-2 p-1 d-flex border rounded">
-            <input
-              className="form-control border-0  txt-input"
-              name="password"
-              type="password"
-              placeholder="Contraseña"
-              onChange={(e) => handleChange(e)}
-            />
-          </div>
-
-          <div className="row d-flex justify-content-between mt-3 mb-2">
-            <div className="mb-3">
-              <div className="form-check ms-1">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id="mycheckbox"
-                />
-                <label className="form-check-label" htmlFor="mycheckbox">
-                  Recordar
-                </label>
-              </div>
+      <div className="header flex flex-col" id="header">
+        <Toast ref={toast} />
+        <AuthCard>
+          <form onSubmit={handleSubmit} autoComplete="off">
+            <br />
+            <div className="mb-2 p-1 d-flex border rounded">
+              <InputText
+                name="username"
+                id="inputLogin"
+                placeholder="Usuario"
+                onChange={(e) => handleChange(e)}
+              />
             </div>
-          </div>
-          <div className="d-grid gap-2">
-            <button type="submit" className="btn btn-primary">
-              Sign In
-            </button>
-          </div>
-        </form>
-      </AuthCard>
+
+            <div className="mb-2 p-1 d-flex border rounded">
+              <InputText
+                name="password"
+                type="password"
+                placeholder="Contraseña"
+                id="inputLogin"
+                onChange={(e) => handleChange(e)}
+              />
+            </div>
+            <div className="d-grid gap-2">
+              <Button type="submit" className="btn btn-primary" id="btnLogin">
+                Sign In
+              </Button>
+            </div>
+          </form>
+        </AuthCard>
+      </div>
     </>
   );
 }
