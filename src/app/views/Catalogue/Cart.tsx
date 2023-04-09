@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { removeProductFromCart } from '../../reducers/cart/cartSlice';
 import { IProduct } from '../../interfaces/IProduct';
@@ -19,6 +19,9 @@ export const Cart = () => {
   const userData = sessionStorage.getItem("user");
   const userObj = JSON.parse(userData || "{}");
   const id_persona = userObj.id;
+  useEffect(() => {
+    console.log(id_persona)
+}, []);
   //Mensajes de alerta
   const toast: any = useRef(null);
   //Para acceder al storage
@@ -45,7 +48,7 @@ export const Cart = () => {
     cartService.save({
       "fecha_carrito": fecha,
       "valor_total": subtotal,
-      "persona":{"persona_carrito":id_persona}
+      "persona_carrito":{"id_persona":id_persona}
     }).then(result => {
       console.log(result)
       // Recorremos el array de productos del carrito y les asignamos el id_carrito obtenido
