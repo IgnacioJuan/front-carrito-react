@@ -81,7 +81,7 @@ export const Navbar: React.FC = () => {
                   className="nav-link text-white ls-1 text-uppercase fw-6 fs-22"
                   to="/cart"
                 >
-                  CART {totalCount}
+                  SHOPPING CAR {totalCount}
                 </Link>
               </li>
               <li className="nav-item">
