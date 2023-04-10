@@ -33,7 +33,11 @@ export const CartListAdm = () => {
             <DataTable
                 value={cartList}
                 responsiveLayout="scroll"
-                style={{ textAlign: "center" }}
+                style={{
+                    textAlign: "center",
+                    fontFamily:
+                      "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif",
+                  }}
                 selectionMode="single"
                 paginator
                 rows={5}

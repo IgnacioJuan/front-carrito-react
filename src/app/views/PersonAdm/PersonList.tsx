@@ -9,14 +9,11 @@ import { Divider } from "primereact/divider";
 import PersonForm from "./PersonForm";
 import { PersonContext } from "./PersonContext";
 
-
 export const PersonList = () => {
   //Codigo para llenar la tabla segun un array
   const { findPerson, people } = useContext(PersonContext);
- 
+
   const [seleccion, setSeleccion] = useState();
-
-
 
   //Para el dialog de la creacion de personas
   const [isVisible, setIsVisible] = useState(false);
@@ -45,7 +42,13 @@ export const PersonList = () => {
         }}
       >
         <Button
-          style={{ margin: "0 auto", textAlign: "center" }}
+          style={{
+            margin: "0 auto",
+            textAlign: "center",
+            fontFamily:
+              "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif",
+            background: "black",
+          }}
           onClick={newPerson}
         >
           New Person
@@ -67,7 +70,11 @@ export const PersonList = () => {
               header={header}
               value={people}
               responsiveLayout="scroll"
-              style={{ textAlign: "center" }}
+              style={{
+                textAlign: "center",
+                fontFamily:
+                  "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif",
+              }}
               selectionMode="single"
               onSelectionChange={(e: any) => savePerson(e.value.id_persona)}
               paginator

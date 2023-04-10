@@ -1,5 +1,6 @@
 .input {
-  padding: 10px
+  padding: 10px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .card {
@@ -13,6 +14,7 @@
   display: flex;
   justify-content: center;
   padding: 15px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .input-container2 {
@@ -21,6 +23,7 @@
   display: flex;
   justify-content: center;
   padding: 15px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .input-container3 {
@@ -29,6 +32,7 @@
   display: flex;
   justify-content: center;
   padding: 15px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .elementosDialog {
@@ -52,18 +56,21 @@
 .imagen {
   justify-content: center;
   width: auto;
-  height: 200px;
-  margin: 0 auto;
-  display: block;
+  height: 60px;
+  margin-bottom: 5px;
 }
 
-.BotonChose {
+.custom-file-upload {
   display: block;
   margin: 0 auto;
+}
+.p-button.p-fileupload-choose{
+  background: #0c0606;
+  border-color: #0c0606;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .botonimagen {
-  background-color: #f44336;
   border: none;
   color: white;
   padding: 10px 24px;
@@ -74,6 +81,7 @@
   font-size: 16px;
   margin-top: 10px;
   cursor: pointer;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .flexx {
@@ -83,3 +91,4 @@
   justify-content: space-between;
   margin-bottom: 10px;
 }
+

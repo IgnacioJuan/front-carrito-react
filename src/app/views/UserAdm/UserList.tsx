@@ -14,7 +14,6 @@ export const UserList = () => {
   const { findUser, users } = useContext(UserContext);
   const [seleccion, setSeleccion] = useState();
 
-
   //Funcion para remplazar la contraseña por *
   function renderPassword(data: any) {
     return "*".repeat(data.password.length);
@@ -47,7 +46,13 @@ export const UserList = () => {
         }}
       >
         <Button
-          style={{ margin: "0 auto", textAlign: "center", fontSize: "15px" }}
+          style={{
+            margin: "0 auto",
+            textAlign: "center",
+            fontFamily:
+              "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif",
+            background: "black",
+          }}
           onClick={newUser}
         >
           New User
@@ -68,7 +73,11 @@ export const UserList = () => {
               header={header}
               value={users}
               responsiveLayout="scroll"
-              style={{ textAlign: "center", fontSize: "15px" }}
+              style={{
+                textAlign: "center",
+                fontFamily:
+                  "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif",
+              }}
               selectionMode="single"
               onSelectionChange={(e: any) => saveUser(e.value.id_usuario)}
               paginator

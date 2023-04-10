@@ -45,7 +45,7 @@ const PersonForm = (props: any) => {
         telefono: editPerson.telefono,
         celular: editPerson.celular,
         codigo_postal: editPerson.codigo_postal,
-        enabled:editPerson.enabled
+        enabled: editPerson.enabled,
       });
   }, [editPerson]);
 
@@ -135,7 +135,11 @@ const PersonForm = (props: any) => {
           setEditPerson(null);
           setPersonData(initialPersonState);
         }}
-        style={{ width: "800px" }}
+        style={{
+          width: "800px",
+          fontFamily:
+            "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif",
+        }}
         breakpoints={{ "960px": "75vw", "641px": "100vw" }}
       >
         <div className="card flex flex-wrap gap-3">
@@ -257,6 +261,11 @@ const PersonForm = (props: any) => {
             icon="pi pi-check"
             onClick={savePerson}
             autoFocus
+            style={{
+              fontFamily:
+                "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif",
+              background: "black ",
+            }}
           />
           <Button
             label="Delete"
@@ -265,6 +274,14 @@ const PersonForm = (props: any) => {
               if (editPerson) setConfirm(true);
             }}
             className="p-button-text"
+            style={{
+              fontFamily:
+                "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif",
+              background: "#8C0F29",
+              color: "white",
+              marginLeft: "5px",
+              borderColor: "black",
+            }}
           />
         </div>
       </Dialog>

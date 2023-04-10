@@ -11,11 +11,9 @@ import { ProductContext } from "./ProductContext";
 import { IProduct } from "../../interfaces/IProduct";
 
 export const ProductList = () => {
-
   //Codigo para llenar la tabla segun un array
   const { findProduct, products } = useContext(ProductContext);
   const [seleccion, setSeleccion] = useState();
-
 
   //Para el dialog de la creacion de productos
   const [isVisible, setIsVisible] = useState(false);
@@ -32,32 +30,50 @@ export const ProductList = () => {
   };
 
   const header = (
-    <div className="flex flex-wrap align-items-center justify-content-between " >
+    <div className="flex flex-wrap align-items-center justify-content-between ">
       <span className="text-xl text-900 font-bold">PRODUCTS LIST</span>
       <Divider />
       <div
         id="busqueda"
-        style={{ alignItems: "center", paddingLeft: "75px", paddingRight: "75px" }}
+        style={{
+          alignItems: "center",
+          paddingLeft: "75px",
+          paddingRight: "75px",
+        }}
       >
-        <Button style={{ margin: "0 auto", textAlign: "center" }} onClick={newProduct}>New Product</Button>
+        <Button
+          style={{
+            margin: "0 auto",
+            textAlign: "center",
+            fontFamily:
+              "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif",
+            background:"black"
+          }}
+          onClick={newProduct}
+        >
+          New Product
+        </Button>
       </div>
     </div>
   );
-
 
   const base64ToImage = (base64String: string) => {
     return `data:image/jpeg;base64,${base64String}`;
   };
 
   const imageBodyTemplate = (rowData: IProduct) => {
-    return <img className="imagen" src={base64ToImage(rowData.foto)} alt={rowData.nom_Producto}  />;
+    return (
+      <img
+        className="imagen"
+        src={base64ToImage(rowData.foto)}
+        alt={rowData.nom_Producto}
+      />
+    );
   };
   //HTML
   return (
     <>
-      <div >
-
-
+      <div>
         <Toast ref={toast} />
         {/* Card de el product y la tabla de products */}
         <div className="linea">
@@ -67,7 +83,11 @@ export const ProductList = () => {
               header={header}
               value={products}
               responsiveLayout="scroll"
-              style={{ textAlign: "center" }}
+              style={{
+                textAlign: "center",
+                fontFamily:
+                  "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif",
+              }}
               selectionMode="single"
               onSelectionChange={(e: any) => saveProduct(e.value.id_producto)}
               paginator
@@ -80,8 +100,10 @@ export const ProductList = () => {
               <Column field="descripcion" header="DESCRIPTION"></Column>
               <Column field="valor_unitario" header="UNIT VALUE"></Column>
               <Column field="foto" header="IMAGE" body={imageBodyTemplate} />
-              <Column field="categoria.nombre_categoria" header="CATEGORY"></Column>
-
+              <Column
+                field="categoria.nombre_categoria"
+                header="CATEGORY"
+              ></Column>
             </DataTable>
             <br />
             <Divider />

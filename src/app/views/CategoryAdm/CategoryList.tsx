@@ -10,63 +10,80 @@ import CategorysForm from "./CategoryForm";
 import { CategoryContext } from "./CategoryContext";
 
 export const CategoryList = () => {
-
   //Codigo para llenar la tabla segun un array
   const { findCategory, categorys } = useContext(CategoryContext);
-
 
   //Para el dialog de la creacion de categoryos
   const [isVisible, setIsVisible] = useState(false);
   const [confirm, setConfirm] = useState(false);
   const toast = useRef(null);
-  
-  const saveCategory = (id:number) => { 
+
+  const saveCategory = (id: number) => {
     findCategory(id);
     setIsVisible(true);
   };
-  const newCategory = (e:any) => {
+  const newCategory = (e: any) => {
     setIsVisible(true);
   };
 
   const header = (
-    <div className="flex flex-wrap align-items-center justify-content-between " >
+    <div className="flex flex-wrap align-items-center justify-content-between ">
       <span className="text-xl text-900 font-bold">CATEGORY LIST</span>
       <Divider />
       <div
         id="busqueda"
         className=""
-        style={{ alignItems: "center", paddingLeft:"75px" , paddingRight:"75px" }}
+        style={{
+          alignItems: "center",
+          paddingLeft: "75px",
+          paddingRight: "75px",
+        }}
       >
-        <Button onClick={newCategory}>New Category</Button>
+        <Button
+          onClick={newCategory}
+          style={{
+            margin: "0 auto",
+            textAlign: "center",
+            fontFamily:
+              "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif",
+            background: "black",
+          }}
+        >
+          New Category
+        </Button>
       </div>
     </div>
   );
   //HTML
   return (
     <>
-      <div >
-        
-      
+      <div>
         <Toast ref={toast} />
         {/* Card de el category y la tabla de categorys */}
         <div className="linea">
           <Card className="table">
             {/* Tabla de categorys */}
             <DataTable
-             header={header}
+              header={header}
               value={categorys}
               responsiveLayout="scroll"
-              style={{ textAlign: "center" }}
+              style={{
+                textAlign: "center",
+                fontFamily:
+                  "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif",
+              }}
               selectionMode="single"
-              onSelectionChange={(e:any) => saveCategory(e.value.id_categoria)}
+              onSelectionChange={(e: any) => saveCategory(e.value.id_categoria)}
               paginator
               rows={5}
               rowsPerPageOptions={[5, 10, 25, 50]}
             >
               <Column field="id_categoria" header="ID"></Column>
               <Column field="nombre_categoria" header="NAME"></Column>
-              <Column field="descripcion_categoria" header="DESCRIPTION"></Column>
-              
+              <Column
+                field="descripcion_categoria"
+                header="DESCRIPTION"
+              ></Column>
             </DataTable>
             <br />
             <Divider />

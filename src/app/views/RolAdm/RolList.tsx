@@ -9,13 +9,10 @@ import { Divider } from "primereact/divider";
 import RolForm from "./RolForm";
 import { RolContext } from "./RolContext";
 
-
 export const RolList = () => {
-
   //Codigo para llenar la tabla segun un array
   const { findRol, roles } = useContext(RolContext);
   const [seleccion, setSeleccion] = useState();
-
 
   //Para el dialog de la creacion de roles
   const [isVisible, setIsVisible] = useState(false);
@@ -32,25 +29,37 @@ export const RolList = () => {
   };
 
   const header = (
-    <div className="flex flex-wrap align-items-center justify-content-between " >
+    <div className="flex flex-wrap align-items-center justify-content-between ">
       <span className="text-xl text-900 font-bold">ROLES LIST</span>
       <Divider />
       <div
         id="busqueda"
-        style={{ alignItems: "center", paddingLeft: "75px", paddingRight: "75px" }}
+        style={{
+          alignItems: "center",
+          paddingLeft: "75px",
+          paddingRight: "75px",
+        }}
       >
-        <Button style={{ margin: "0 auto", textAlign: "center" }} onClick={newRol}>New Rol</Button>
+        <Button
+          style={{
+            margin: "0 auto",
+            textAlign: "center",
+            fontFamily:
+              "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif",
+            background: "black",
+          }}
+          onClick={newRol}
+        >
+          New Rol
+        </Button>
       </div>
     </div>
   );
 
-
   //HTML
   return (
     <>
-      <div >
-
-
+      <div>
         <Toast ref={toast} />
         {/* Card y tabla de roles */}
         <div className="linea">
@@ -60,7 +69,11 @@ export const RolList = () => {
               header={header}
               value={roles}
               responsiveLayout="scroll"
-              style={{ textAlign: "center" }}
+              style={{
+                textAlign: "center",
+                fontFamily:
+                  "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif",
+              }}
               selectionMode="single"
               onSelectionChange={(e: any) => saveRol(e.value.rolId)}
               paginator
@@ -70,7 +83,6 @@ export const RolList = () => {
               <Column field="rolId" header="ID"></Column>
               <Column field="rolNombre" header="Nombre del Rol"></Column>
               <Column field="descripcion" header="Descripcion"></Column>
-
             </DataTable>
             <br />
             <Divider />

@@ -1,5 +1,5 @@
 .home {
-    min-height: 100vh;
+    min-height: 88.5vh;
     background: linear-gradient(rgb(253, 253, 253), rgba(255, 255, 255, 0.4)),
         url("../assets/img/635966474951010641-MB12-Dancing3up-PRINT-4-USE.webp") center/cover no-repeat;
   
@@ -7,6 +7,7 @@
 .welcome {
     text-align: center;
     padding: 50px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .welcome h2 {

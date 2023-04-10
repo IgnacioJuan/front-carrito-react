@@ -111,7 +111,11 @@ const RolForm = (props: any) => {
           setEditRol(null);
           setRolData(initialRolState);
         }}
-        style={{ width: "800px" }}
+        style={{
+          width: "800px",
+          fontFamily:
+            "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif",
+        }}
         breakpoints={{ "960px": "75vw", "641px": "100vw" }}
       >
         <div className="card flex flex-wrap gap-3">
@@ -150,6 +154,11 @@ const RolForm = (props: any) => {
             icon="pi pi-check"
             onClick={guardarRol}
             autoFocus
+            style={{
+              fontFamily:
+                "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif",
+              background: "black ",
+            }}
           />
           <Button
             label="Delete"
@@ -158,6 +167,14 @@ const RolForm = (props: any) => {
               if (editRol) setConfirm(true);
             }}
             className="p-button-text"
+            style={{
+              fontFamily:
+                "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif",
+              background: "#8C0F29",
+              color: "white",
+              marginLeft: "5px",
+              borderColor: "black",
+            }}
           />
         </div>
       </Dialog>

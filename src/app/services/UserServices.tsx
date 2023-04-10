@@ -4,7 +4,7 @@ export class UserService {
   baseUrl = "http://localhost:8080/usuarios/";
 
   getAll() {
-    return axios.get(this.baseUrl + "users/all").then((res) => res.data);
+    return axios.get(this.baseUrl + "users/list").then((res) => res.data);
   }
   save(user: any) {
     return axios.post(this.baseUrl + "signup", user).then((res) => res.data);

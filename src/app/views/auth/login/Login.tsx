@@ -7,7 +7,6 @@ import { Toast } from "primereact/toast";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import "../../../styles/Login.css";
-import { Card } from "primereact/card";
 
 export function Login() {
   const toast = useRef<Toast>(null);
