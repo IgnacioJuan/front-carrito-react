@@ -1,18 +1,15 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 import { removeProductFromCart } from "../../reducers/cart/cartSlice";
-import { IProduct } from "../../interfaces/IProduct";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import { Button } from "primereact/button";
 import { ICarDet } from "../../interfaces/ICartDet";
 import { Toast } from "primereact/toast";
 import { Card } from "primereact/card";
-import { ICart } from "../../interfaces/ICart";
 import { CartService } from "../../services/CartService";
 import { DetCartService } from "../../services/DetCartService";
-import CartList from "../Carts/CartList";
 
 export const Cart = () => {
   //Capturar id_persona de session Storage
