@@ -13,19 +13,21 @@ export const CategoryList = () => {
   //Codigo para llenar la tabla segun un array
   const { findCategory, categorys } = useContext(CategoryContext);
 
-  //Para el dialog de la creacion de categoryos
+  //Para el dialog de la creacion de categorias
   const [isVisible, setIsVisible] = useState(false);
   const [confirm, setConfirm] = useState(false);
   const toast = useRef(null);
 
+  //Disparador para editar
   const saveCategory = (id: number) => {
     findCategory(id);
     setIsVisible(true);
   };
+  //Disparador para crear nuevo
   const newCategory = (e: any) => {
     setIsVisible(true);
   };
-
+  //Componente header para la tabla
   const header = (
     <div className="flex flex-wrap align-items-center justify-content-between ">
       <span className="text-xl text-900 font-bold">CATEGORY LIST</span>
@@ -54,7 +56,7 @@ export const CategoryList = () => {
       </div>
     </div>
   );
-  //HTML
+  //Vista
   return (
     <>
       <div>

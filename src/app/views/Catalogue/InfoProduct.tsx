@@ -13,23 +13,29 @@ import {
 } from "../../reducers/cart/cartSlice";
 import { ICarDet } from "../../interfaces/ICartDet";
 
+//componente dialogo del catalogo
 const InfoProduct = (props: any) => {
   //For the dialog state
   const { isVisible, setIsVisible, toast, productData } = props;
   const [confirm, setConfirm] = useState(false);
+  //Para acceder al storage
   const dispatch = useDispatch();
   const initialState = {
     cantidad: 1,
     valor_total: 0,
     producto: productData,
   };
+  //Actualizar la data del producto
   useEffect(() => {
     setProductDetData({
       ...productDet,
     });
   }, [isVisible]);
+  //Objeto de detalle
   const [productDet, setProductDetData] = useState<ICarDet>(initialState);
+  //Lista de productos del storage
   const { productsList } = useSelector((state: any) => state?.cart);
+  //Metodo realizar una de las operaciones del storage
   const handleAddOrRemoveProduct = (productId: any) => {
     if (
       productsList.find(
@@ -61,7 +67,7 @@ const InfoProduct = (props: any) => {
     setIsVisible(false);
     setProductDetData(initialState);
   };
-
+  //Para detectar cambios de cantidad 
   const onInputChange = (data: any, field: any) => {
     setProductDetData({ ...productDet, [field]: data });
   };

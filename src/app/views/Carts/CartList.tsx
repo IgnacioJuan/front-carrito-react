@@ -22,12 +22,11 @@ export const CartList = () => {
   const userData = sessionStorage.getItem("user");
   const userObj = JSON.parse(userData || "{}");
   const id_persona = userObj.id;
-  useEffect(() => {
-    console.log(id_persona);
-  }, []);
-  //For the dialog state
+  //Lista de carritos
   const [cartList, setCartList] = useState<ICart[]>([]);
+  //Servicio
   const cartService = new CartService();
+  //Filtramos los carritos por el id del usuario logeado
   useEffect(() => {
     cartService.getAll().then((data) => {
       const filteredData = data.filter(

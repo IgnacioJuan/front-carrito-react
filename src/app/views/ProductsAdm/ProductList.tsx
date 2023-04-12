@@ -19,16 +19,18 @@ export const ProductList = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [confirm, setConfirm] = useState(false);
   const toast = useRef(null);
-
+  //Disparador para mostrar el dialogo en caso de haber seleccionado un registro de la tabla
   const saveProduct = (id: any) => {
     findProduct(id);
     setIsVisible(true);
   };
+  //Disparador para crear un nuevo producto
   const newProduct = (e: any) => {
     setSeleccion(e.target.id.slice(0, -1));
     setIsVisible(true);
   };
 
+  //Componente del header para la tabla
   const header = (
     <div className="flex flex-wrap align-items-center justify-content-between ">
       <span className="text-xl text-900 font-bold">PRODUCTS LIST</span>
@@ -56,11 +58,10 @@ export const ProductList = () => {
       </div>
     </div>
   );
-
+  //Para mostrar la imagen
   const base64ToImage = (base64String: string) => {
     return `data:image/jpeg;base64,${base64String}`;
   };
-
   const imageBodyTemplate = (rowData: IProduct) => {
     return (
       <img
@@ -70,15 +71,16 @@ export const ProductList = () => {
       />
     );
   };
-  //HTML
+
+  //Vista
   return (
     <>
       <div>
+        {/* mensajes de lerta */}
         <Toast ref={toast} />
-        {/* Card de el product y la tabla de products */}
+
         <div className="linea">
           <Card className="table">
-            {/* Tabla de products */}
             <DataTable
               header={header}
               value={products}
@@ -110,6 +112,7 @@ export const ProductList = () => {
           </Card>
         </div>
       </div>
+      {/* Dialogo */}
       <ProductsForm
         isVisible={isVisible}
         setIsVisible={setIsVisible}

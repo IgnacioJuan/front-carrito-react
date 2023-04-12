@@ -10,9 +10,11 @@ export const CartListAdm = () => {
     const userData = sessionStorage.getItem("user");
     const userObj = JSON.parse(userData || "{}");
     const id_persona = userObj.id;
-    //For the dialog state
+    //Lista de carritos
     const [cartList, setCartList] = useState<ICart[]>([]);
+    //Servicio
     const cartService = new CartService();
+    //Llenamos la lista de carritos
     useEffect(() => {
         cartService.getAll().then(data => {
             setCartList(data);

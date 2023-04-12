@@ -6,11 +6,13 @@ import { InputText } from "primereact/inputtext";
 
 import "../../styles/Category.css";
 import { ICategory } from "../../interfaces/ICategory";
+
+//Formulario, Dialogo para crear o editar
 const CategorysForm = (props: any) => {
+  //Control del dialogo
   const { isVisible, setIsVisible, toast } = props;
   const [confirm, setConfirm] = useState(false);
-  const [requiredFieldsEmpty, setRequiredFieldsEmpty] = useState(false);
-
+  //Estado inicial
   const initialCategoryState = {
     id_categoria: 0,
     nombre_categoria: "",
@@ -18,17 +20,18 @@ const CategorysForm = (props: any) => {
     enabled: true,
     producto: null,
   };
+  //Datos transitorios
   const [categoryData, setCategoryData] =
     useState<ICategory>(initialCategoryState);
+  //Operaciones del contexto
   const {
     createCategory,
     deleteCategory,
-    // findCategory,
     updateCategory,
     editCategory,
     setEditCategory,
   } = useContext(CategoryContext);
-
+  //Control de precarga de datos
   useEffect(() => {
     if (editCategory)
       setCategoryData({
@@ -37,13 +40,13 @@ const CategorysForm = (props: any) => {
         descripcion_categoria: editCategory.descripcion_categoria,
       });
   }, [editCategory]);
-
+  //Precarga de datos
   useEffect(() => {
     setCategoryData({
       ...categoryData,
     });
   }, []);
-
+  //Guardado o actualizacion
   const guardarCategory = () => {
     console.log(categoryData);
     if (validateInputs()) {
@@ -69,6 +72,7 @@ const CategorysForm = (props: any) => {
       });
     }
   };
+  //Borrado
   const _borrarCategory = () => {
     if (editCategory) {
       console.log(categoryData);
@@ -90,6 +94,8 @@ const CategorysForm = (props: any) => {
     console.log(categoryData);
   };
   //Para validar campos vacios
+  const [requiredFieldsEmpty, setRequiredFieldsEmpty] = useState(false);
+
   const validateInputs = () => {
     if (!categoryData.nombre_categoria || !categoryData.descripcion_categoria) {
       setRequiredFieldsEmpty(true);
@@ -97,7 +103,7 @@ const CategorysForm = (props: any) => {
     }
     return true;
   };
-
+  //Vista
   return (
     <>
       <Dialog

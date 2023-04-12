@@ -46,11 +46,15 @@ export const Cart = () => {
       />
     );
   };
-  //
+  //Codigo para finalizar la compra del carrito
+  //Servicios
   const cartService = new CartService();
   const detcartService = new DetCartService();
+  //Fecha
   const fecha = new Date();
+  //Guardado en cascada
   const guardar = () => {
+    //Guardamos el carrito
     cartService
       .save({
         enabled: true,
@@ -60,7 +64,7 @@ export const Cart = () => {
         persona_carrito: { id_persona: id_persona },
       })
       .then((result) => {
-        console.log(result);
+        // Si se guarda el carrito continuamos con los detalles
         // Recorremos el array de productos del carrito y les asignamos el id_carrito obtenido
         productsList.forEach((producto: ICarDet) => {
           const productoConId = {
@@ -68,11 +72,11 @@ export const Cart = () => {
             carrito: { id_carrito: result.id_carrito },
           };
 
-          // Guardamos el detalle del producto en el carrito
+          // Guardamos el detalle del producto 
           detcartService
             .save(productoConId)
             .then((detCartResult) => {
-              console.log(detCartResult);
+              //Si se guarda el detalle, eliminamos del storage los productos correspondiente
               handleRemoveProduct(productoConId.producto.id_producto);
             })
             .catch((detCartError) => {
@@ -90,9 +94,10 @@ export const Cart = () => {
         console.error(error);
       });
   };
-  //
+  //Componente footer para la card
   const footer = (
     <div className="flex flex-wrap justify-content-end gap">
+      {/* Comprobamos si el array del storage tiene productos */}
       {productsList.length > 0 ? (
         <Button
           onClick={guardar}

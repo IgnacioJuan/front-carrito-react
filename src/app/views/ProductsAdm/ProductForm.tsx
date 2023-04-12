@@ -14,17 +14,19 @@ import { IProduct } from "../../interfaces/IProduct";
 import { ICategory } from "../../interfaces/ICategory";
 import { CategoryService } from "../../services/CategoryServices";
 
+//Formulario que funciona para la creacion, actualizacion
+//y eliminado de los productos
 const ProductsForm = (props: any) => {
-  //For the dialog state
+  //Control del dialogo de creacion
   const { isVisible, setIsVisible, toast } = props;
   const [confirm, setConfirm] = useState(false);
-  //Categorys variables
+  //Variables para controlar las categorias
   const [selectedCategory, setSelectedCategory] = useState<ICategory | null>(
     null
   );
   const [categorys, setCategorys] = useState<ICategory[]>([]);
   const categoryService = new CategoryService();
-  //For the products
+  //Variables para controlar los productos
   const initialProductState = {
     id_producto: 0,
     nom_Producto: "",
@@ -42,6 +44,7 @@ const ProductsForm = (props: any) => {
     },
   };
   const [productData, setProductData] = useState<IProduct>(initialProductState);
+  //Importamos las operacions del contexto
   const {
     createProduct,
     deleteProduct,
@@ -49,19 +52,19 @@ const ProductsForm = (props: any) => {
     editProduct,
     setEditProduct,
   } = useContext(ProductContext);
+  //Verificamos si el dialogo precargara la informacion en caso de editar
   useEffect(() => {
     if (editProduct) setProductData(editProduct);
     setSelectedFile("si");
-    console.log(editProduct?.foto);
   }, [editProduct]);
+  //Precargamos la informacion en los componentes del formulario
   useEffect(() => {
     setProductData({
       ...productData,
     });
   }, []);
-
+  //Metodo para guardar o editar el producto
   const guardarProduct = () => {
-    console.log(productData);
     if (validateInputs()) {
       if (!editProduct) {
         createProduct(productData);
@@ -90,6 +93,7 @@ const ProductsForm = (props: any) => {
       });
     }
   };
+  //Metodo para borrar un producto
   const _borrarProduct = () => {
     if (editProduct) {
       deleteProduct(productData);
@@ -103,12 +107,11 @@ const ProductsForm = (props: any) => {
       });
     }
   };
-  //If the input in the form change
+  //metodo para colocar en el objeto lo que se inserte en los campos del formulario
   const onInputChange = (data: any, field: any) => {
     setProductData({ ...productData, [field]: data });
-
-    console.log(productData);
   };
+  //Validacion de campos completados
   const [requiredFieldsEmpty, setRequiredFieldsEmpty] = useState(false);
   const validateInputs = () => {
     if (
@@ -125,7 +128,7 @@ const ProductsForm = (props: any) => {
     return true;
   };
 
-  //For the dropdown
+  //Metodos necesarios para el dropdown de categorias
   const selectedPacientTemplate = (option: any, props: any) => {
     if (option) {
       return (
@@ -146,7 +149,9 @@ const ProductsForm = (props: any) => {
       setCategorys(data);
     });
   }, []);
-  //To convert the image+
+ 
+ 
+  //Metodos para la imagen del producto 
 
   const [selectedFile, setSelectedFile] = useState<string | null>(null);
   const fileUploadRef = useRef<any>(null);
@@ -179,11 +184,10 @@ const ProductsForm = (props: any) => {
       fileUploadRef.current.clear();
     }
   }
-
+  //Vista
   return (
     <>
       {/* Dialogo para la creacion de una product*/}
-      {/* <Button label="Show" icon="pi pi-external-link" onClick={() => setVisible(true)} /> */}
       <Dialog
         className="DialogoCentrado"
         header="NEW PRODUCT"

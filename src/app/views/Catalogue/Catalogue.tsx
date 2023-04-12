@@ -10,23 +10,28 @@ import { Toast } from "primereact/toast";
 import { ICarDet } from "../../interfaces/ICartDet";
 import { Card } from "primereact/card";
 
+//Componente del catalogo
 export default function Catalogue() {
+  //Control del dialog 
   const [isVisible, setIsVisible] = useState(false);
+  //mensajes de alerta
   const toast = useRef(null);
-
+  //Lista de productos
   const [products, setProducts] = useState<IProduct[]>([]);
+  //Servicios de producto
   const productService = new ProductService();
+  //Funcion para comprobar los productos almacenados
   useEffect(() => {
     productService.getAll().then((data) => setProducts(data));
   }, []);
-
+  //Storage
   const { productsList } = useSelector((state: any) => state?.cart);
-
+  //Disparador del dialog
   const agregar = (producto: IProduct) => {
     setProductData(producto);
     setIsVisible(true);
   };
-
+  //Estado inicial del producto
   const initialProductState = {
     id_producto: 0,
     nom_Producto: "",
@@ -44,6 +49,7 @@ export default function Catalogue() {
     },
   };
   const [productData, setProductData] = useState<IProduct>(initialProductState);
+  //Vista
   return (
     <>
       <Toast ref={toast} />
