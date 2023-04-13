@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 export class CategoryService {
    baseUrl = "http://localhost:8080/api/categoria/";
 

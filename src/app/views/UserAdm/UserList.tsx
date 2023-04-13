@@ -21,7 +21,7 @@ export const UserList = () => {
 
   //Para el dialog de la creacion de usuario
   const [isVisible, setIsVisible] = useState(false);
-  const [confirm, setConfirm] = useState(false);
+  // const [confirm, setConfirm] = useState(false);
   const toast = useRef(null);
 
   const saveUser = (id: any) => {
