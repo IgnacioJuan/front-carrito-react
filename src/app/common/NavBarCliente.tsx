@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "../../../src/app/styles/NavbarHome.css";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -9,7 +9,6 @@ export const NavBarCliente: React.FC = () => {
   };
   const { totalCount } = useSelector((state: any) => state?.cart);
 
-  const [confirm, setConfirm] = useState(false);
   return (
     <>
       <div>

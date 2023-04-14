@@ -48,7 +48,6 @@ const UserContextProvider = (props: any) => {
   };
 
   const findUser = (id: number) => {
-    // const user = user.find((p) => p.id_product === id);
     const user = users.find((p) => p.id_usuario === id);
     setEditUser(user || null);
   };

@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import "../styles/NavbarDesh.css";
 
 export const NavBarUserDisabled: React.FC = () => {
   const eliminarUser = () => {
     sessionStorage.removeItem("user");
   };
-  const [confirm, setConfirm] = useState(false);
+
   return (
     <>
       <div>

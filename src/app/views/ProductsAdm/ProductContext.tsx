@@ -30,7 +30,7 @@ const ProductContextProvider = (props: any) => {
     const productService = new ProductService();
     //Lista para almacenar los productos 
     const [products, setProducts] = useState<IProduct[]>([]);
-    //Variable para almacenar un producto trancitorio
+    //Variable para almacenar un producto transitorio
     const [editProduct, setEditProduct] = useState<IProduct | null>(null);
 
     //LLena el array de productos cada que se refresca la pagina

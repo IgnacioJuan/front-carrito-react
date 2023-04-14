@@ -6,7 +6,6 @@ import {
   Redirect,
 } from "react-router-dom";
 import { AuthRouter } from "../views/auth/Authrouter";
-import Home from "../views/dashboard/home/Home";
 import { PrivateRouter } from "./PrivateRouter";
 import { AuthContext } from "../views/store/context/AuthContext";
 import { DashboardRouter } from "../views/dashboard/DashboardRouter";
@@ -25,17 +24,22 @@ export function AppRouter() {
   const { user } = useContext<Context>(AuthContext);
 
   return (
+    // Es el componente que envuelve toda la aplicación y le permite manejar la navegación mediante la actualización de la URL en el navegador.
     <Router>
       <Switch>
+      {/* Renderiza solamente la primera ruta que coincide con la URL actual, lo que significa que solo se mostrará un componente a la vez. */}
         <Route exact path="/inicio">
+          {/* Ruta para direccionarse a Bienvenida */}
           <Bienvenida />
         </Route>
         <Route path="/auth">
+           {/* Ruta para direccionarse al router de login */}
           <AuthRouter />
         </Route>
+        {/* Acceso a las rutas privadas del sistema solamente cuando este logueado */}
         <PrivateRouter loggedIn={user?.loggedIn} component={DashboardRouter} />
+        {/* Si no se encuentra logueado se direcciona al Inicio */}
         <Redirect to="/dashboard/home" />
-        {/* use Navigate instead of Redirect */}
       </Switch>
     </Router>
   );

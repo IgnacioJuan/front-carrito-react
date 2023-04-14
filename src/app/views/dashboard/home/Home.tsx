@@ -1,8 +1,6 @@
 import React from "react";
 import "../../../styles/Home.css";
-//npm i -d sass - INSTALAR para usar el menu
 const Home = () => {
-  //24-02-23
   return (
     <div>
       <div className="home">
