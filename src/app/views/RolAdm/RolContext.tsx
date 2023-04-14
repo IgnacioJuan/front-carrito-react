@@ -40,7 +40,7 @@ const RolContextProvider = (props: any) => {
       setRoles(data);
     });
   }, []);
-  
+
   //Operacion de creacion
   const createRol = (rol: any) => {
     roleService.save(rol).then((data) => {

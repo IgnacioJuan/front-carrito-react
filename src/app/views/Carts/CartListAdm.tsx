@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "../../styles/Product.css";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";

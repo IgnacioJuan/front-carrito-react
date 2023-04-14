@@ -17,9 +17,8 @@ const init = () => {
 
 function App() {
   const [user, dispatchUser] = useReducer(authReducer, {}, init);
-  
+
   return (
-    
     <AuthContext.Provider value={{ user, dispatchUser }}>
       <AppRouter />
     </AuthContext.Provider>

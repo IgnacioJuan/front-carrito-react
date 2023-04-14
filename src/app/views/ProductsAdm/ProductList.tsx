@@ -17,7 +17,6 @@ export const ProductList = () => {
 
   //Para el dialog de la creacion de productos
   const [isVisible, setIsVisible] = useState(false);
-  const [confirm, setConfirm] = useState(false);
   const toast = useRef(null);
   //Disparador para mostrar el dialogo en caso de haber seleccionado un registro de la tabla
   const saveProduct = (id: any) => {
@@ -49,7 +48,7 @@ export const ProductList = () => {
             textAlign: "center",
             fontFamily:
               "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif",
-            background:"black"
+            background: "black",
           }}
           onClick={newProduct}
         >

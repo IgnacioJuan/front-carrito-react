@@ -1,17 +1,5 @@
-import React, { useContext, useState, useEffect, useRef } from "react";
-import { Dialog } from "primereact/dialog";
-import { Button } from "primereact/button";
-import { Slider } from "primereact/slider";
-
-import { InputText } from "primereact/inputtext";
-import { InputNumber } from "primereact/inputnumber";
+import React, { useState, useEffect } from "react";
 import "../../styles/Product.css";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  addProductToCart,
-  removeProductFromCart,
-} from "../../reducers/cart/cartSlice";
-import { ICarDet } from "../../interfaces/ICartDet";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import { CartService } from "../../services/CartService";

@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Button } from "primereact/button";
 import { ProductService } from "../../services/ProductServices";
 import { IProduct } from "../../interfaces/IProduct";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import "../../styles/Catalogue.css";
 import InfoProduct from "./InfoProduct";
@@ -12,7 +12,7 @@ import { Card } from "primereact/card";
 
 //Componente del catalogo
 export default function Catalogue() {
-  //Control del dialog 
+  //Control del dialog
   const [isVisible, setIsVisible] = useState(false);
   //mensajes de alerta
   const toast = useRef(null);
@@ -59,20 +59,21 @@ export default function Catalogue() {
           return (
             <Card id="cardCatalogue">
               <div key={product.id_producto} className="col-3 mt-3 cadr">
-                <h4  id="pCatalogo">{product.nom_Producto}</h4>
+                <h4 id="pCatalogo">{product.nom_Producto}</h4>
                 <img
                   id="imagCatalogue"
                   src={`data:image/jpeg;base64,${product.foto}`}
                   alt="Preview"
                 />
-                               <p id="pCatalogue">
+                <p id="pCatalogue">
                   <b id="pCatalogue">Description:</b> {product.descripcion}
                 </p>
                 <p id="pCatalogue">
                   <b id="pCatalogue">Price:</b> {product.valor_unitario}
                 </p>
                 <p id="pCatalogue">
-                  <b id="pCatalogue">Category:</b> {product.categoria.nombre_categoria}
+                  <b id="pCatalogue">Category:</b>{" "}
+                  {product.categoria.nombre_categoria}
                 </p>
                 <Button id="btnCatalogue" onClick={() => agregar(product)}>
                   {productsList.find(

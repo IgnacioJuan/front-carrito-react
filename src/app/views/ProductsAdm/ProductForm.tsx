@@ -3,13 +3,10 @@ import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import { ProductContext } from "./ProductContext";
 import { Dropdown } from "primereact/dropdown";
-import { Divider } from "primereact/divider";
-import { Toast } from "primereact/toast";
 import { FileUpload } from "primereact/fileupload";
 import { InputText } from "primereact/inputtext";
 import { InputNumber } from "primereact/inputnumber";
 import "../../styles/Product.css";
-import { useLocation } from "react-router-dom";
 import { IProduct } from "../../interfaces/IProduct";
 import { ICategory } from "../../interfaces/ICategory";
 import { CategoryService } from "../../services/CategoryServices";
@@ -149,9 +146,8 @@ const ProductsForm = (props: any) => {
       setCategorys(data);
     });
   }, []);
- 
- 
-  //Metodos para la imagen del producto 
+
+  //Metodos para la imagen del producto
 
   const [selectedFile, setSelectedFile] = useState<string | null>(null);
   const fileUploadRef = useRef<any>(null);
@@ -351,7 +347,7 @@ const ProductsForm = (props: any) => {
             style={{
               fontFamily:
                 "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif",
-              background: "black "
+              background: "black ",
             }}
           />
           <Button

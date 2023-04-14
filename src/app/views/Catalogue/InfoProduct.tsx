@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import { Slider } from "primereact/slider";
@@ -17,7 +17,6 @@ import { ICarDet } from "../../interfaces/ICartDet";
 const InfoProduct = (props: any) => {
   //For the dialog state
   const { isVisible, setIsVisible, toast, productData } = props;
-  const [confirm, setConfirm] = useState(false);
   //Para acceder al storage
   const dispatch = useDispatch();
   const initialState = {
@@ -67,7 +66,7 @@ const InfoProduct = (props: any) => {
     setIsVisible(false);
     setProductDetData(initialState);
   };
-  //Para detectar cambios de cantidad 
+  //Para detectar cambios de cantidad
   const onInputChange = (data: any, field: any) => {
     setProductDetData({ ...productDet, [field]: data });
   };
@@ -189,7 +188,7 @@ const InfoProduct = (props: any) => {
           onChange={(e) => onInputChange(e.value, "cantidad")}
           className="w-full"
           style={{
-           border:"black"
+            border: "black",
           }}
         />
 

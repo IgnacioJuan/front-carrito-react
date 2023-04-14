@@ -15,7 +15,6 @@ export const CategoryList = () => {
 
   //Para el dialog de la creacion de categorias
   const [isVisible, setIsVisible] = useState(false);
-  const [confirm, setConfirm] = useState(false);
   const toast = useRef(null);
 
   //Disparador para editar

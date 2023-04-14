@@ -72,7 +72,7 @@ export const Cart = () => {
             carrito: { id_carrito: result.id_carrito },
           };
 
-          // Guardamos el detalle del producto 
+          // Guardamos el detalle del producto
           detcartService
             .save(productoConId)
             .then((detCartResult) => {

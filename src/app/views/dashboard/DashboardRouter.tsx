@@ -30,19 +30,19 @@ export const DashboardRouter = () => {
   const enabled = userObj.enabled;
   const toast = useRef<Toast>(null);
 
-  // Se está declarando y manejando el estado de products utilizando el hook useState de React, 
-  // lo que permitirá que el componente renderice la información relacionada con los productos 
+  // Se está declarando y manejando el estado de products utilizando el hook useState de React,
+  // lo que permitirá que el componente renderice la información relacionada con los productos
   // en función de su estado actual.
   const [products, setProducts] = useState<IProduct[]>([]);
 
-  // Se obtienen los datos de todos los productos utilizando la instancia de 
+  // Se obtienen los datos de todos los productos utilizando la instancia de
   // ProductService y actualizar el estado products utilizando la función setProducts
   const productService = new ProductService();
   useEffect(() => {
     productService.getAll().then((data) => setProducts(data));
   }, []);
 
-//Se utiliza a travez de Toast para mostrar mensajes de confirmacion/error. 
+  //Se utiliza a travez de Toast para mostrar mensajes de confirmacion/error.
   const showError = (errorPrincipal: string, detalleError: string) => {
     toast.current?.show({
       severity: "error",

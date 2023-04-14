@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useState } from "react";
 import { UserService } from "../../services/UserServices";
 import { PersonService } from "../../services/PersonServices";
 import { IUser } from "../../interfaces/IUser";
@@ -16,7 +16,6 @@ export const UserContext = createContext<IUserContext>({
   createPerson: (person: IPerson) => {},
   users: [],
   createUser: (user: IUser) => {},
-
 });
 
 const UserContextProvider = (props: any) => {
@@ -37,7 +36,6 @@ const UserContextProvider = (props: any) => {
       setUser([...users, data]);
     });
   };
-
 
   return (
     <UserContext.Provider

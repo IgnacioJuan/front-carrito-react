@@ -6,7 +6,7 @@ export function AuthRouter() {
     /* Switch: Renderiza solamente la primera ruta que coincide con la URL actual, lo que significa que solo se mostrará un componente a la vez. */
     <Switch>
       {/* Route: Nos lleva al Componente Login */}
-     <Route exact path="/auth/login">
+      <Route exact path="/auth/login">
         <Login />
       </Route>
       {/* Redirect: Nos lleva al Componente Login */}
